@@ -5,7 +5,7 @@ import { JSX } from 'react';
 import estilo from './Welcome.module.css';
 
 // Importa a imagem para aplicação
-import hamburguer from '../../assets/gps.png'
+import hamburguer from '../../assets/lancheDouble.png'
 
 // Declara o componente funcional Welcome, que retorna uma estrutura JSX
 function Welcome(): JSX.Element {

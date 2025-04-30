@@ -10,13 +10,12 @@ main {
 }
 
 .principal p:first-child {
-    font-size: 30rem;
+    font-size: 14rem;
     color: var(--azul);
-    margin-bottom: -250px;
 }
 
 .principal p:nth-child(2){
-    font-size: 30rem;
+    font-size: 14rem;
     color: var(--laranja);
 }
 

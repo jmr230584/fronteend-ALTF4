@@ -10,7 +10,7 @@ function Welcome(): JSX.Element {
         // Elemento principal da página com classe de estilo personalizada
         <main className={estilo.principal}>
             {/* Mensagem de boas-vindas ao usuário */}
-            <p>Seja bem-vindo(a) à biblioteca.</p>
+            <p>Seja bem-vindo(a) à INBACK.</p>
 
             {/* Mensagem orientando o usuário a fazer login */}
             <p>Para ter uma melhor experiência, faça o login no sistema</p>

@@ -10,10 +10,10 @@ function Rodape(): JSX.Element {
         // Elemento <footer> que representa o rodapé da página, com classe de estilo personalizada
         <footer className={estilo.rodape}>
             {/* Texto com o nome do desenvolvedor ou entidade responsável */}
-            <p>Desenvolvido por: Aula React</p>
+            <p>Para o atendimento à sua solicitação será necessária a coleta de seus dados, como, mas não limitado a: nome completo, telefone, e-mail e endereço. Esses dados serão tratados de acordo com a Política de Privacidade e Termos de Uso do Grupo Alt-F4. Encaminhando o formulário, você declara estar ciente sobre a utilização dos seus dados pessoais para a continuidade do seu atendimento.</p>
 
             {/* Texto de direitos autorais */}
-            <p>Copyright</p>
+            <p>© Senai 2025 | AltF4</p>
         </footer>
     );
 }

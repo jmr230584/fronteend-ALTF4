@@ -1,6 +1,6 @@
 .rodape {
     width: 100%;
-    height: 400px;
+    height: 300px;
 
     background-color: var(--cor-primaria);
 
@@ -12,13 +12,29 @@
 
 .rodape p {
     color: var(--branco-suave);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .rodape p:first-child {
+    margin-top: px;
     margin-left: 5%;
+    width: 1000px;
+    height: 100px;
 }
 
 .rodape p:last-child {
-    margin-right: 5%;
+    margin: 10px;
+
+}
+
+.imagens img {
+    width: 74px;
+    height: 74px;
+
+}
+
+.imagens {
+    display: flex;
+    margin: 10px;
+
 }

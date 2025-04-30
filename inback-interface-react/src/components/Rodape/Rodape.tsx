@@ -3,6 +3,10 @@ import { JSX } from 'react';
 
 // Importa os estilos CSS específicos para o rodapé
 import estilo from './Rodape.module.css';
+import iconLinke from '../../assets/linkedin.png';
+import iconGps from '../../assets/gps.png';
+import iconFacebook from '../../assets/facebook.png';
+import iconInstagram from '../../assets/icon Instagram.png';
 
 // Declara o componente funcional Rodape que retorna um elemento JSX
 function Rodape(): JSX.Element {
@@ -14,6 +18,24 @@ function Rodape(): JSX.Element {
 
             {/* Texto de direitos autorais */}
             <p>© Senai 2025 | AltF4</p>
+            <div className={estilo.imagens}>
+                <a className={estilo.imgLogo}>
+                    {/* Logotipo da aplicação */}
+                    <img className={estilo.iconGps} src={iconGps} alt="iconGps" />
+                </a>
+                <a className={estilo.imgLogo}>
+                    {/* Logotipo da aplicação */}
+                    <img className={estilo.iconFacebook} src={iconFacebook} alt="iconFacebook" />
+                </a>
+                <a className={estilo.imgLogo}>
+                    {/* Logotipo da aplicação */}
+                    <img className={estilo.iconInstagram} src={iconInstagram} alt="iconInstagram" />
+                </a>
+                <a className={estilo.imgLogo}>
+                    {/* Logotipo da aplicação */}
+                    <img className={estilo.iconLinke} src={iconLinke} alt="iconLinke" />
+                </a>
+            </div>
         </footer>
     );
 }

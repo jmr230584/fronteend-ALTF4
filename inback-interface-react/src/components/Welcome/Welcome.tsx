@@ -7,13 +7,12 @@ import estilo from './Welcome.module.css';
 // Declara o componente funcional Welcome, que retorna uma estrutura JSX
 function Welcome(): JSX.Element {
     return (
-        // Elemento principal da página com classe de estilo personalizada
-        <main className={estilo.principal}>
-            {/* Mensagem de boas-vindas ao usuário */}
-            <p>Seja bem-vindo(a) à INBACK.</p>
 
-            {/* Mensagem orientando o usuário a fazer login */}
-            <p>Para ter uma melhor experiência, faça o login no sistema</p>
+        <main className={estilo.principal}>
+            <p>DOUBLE</p>
+            <p>INBACK</p>
+
+    
         </main>
     );
 }

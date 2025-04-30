@@ -6,9 +6,6 @@ import estilo from './Cabecalho.module.css';
 
 // Importa a imagem do logotipo da aplicação
 import logotipo from '../../assets/image.png';
-import iconhome from '../../assets/iconhome.png';
-import iconlogin from '../../assets/iconlogin.png';
-
 // Importa as rotas da aplicação definidas no arquivo de configuração
 import { APP_ROUTES } from '../../appConfig';
 

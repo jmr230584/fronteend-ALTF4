@@ -1,0 +1,63 @@
+.form-section {
+    width: 35%;
+    height: 50vh;
+
+    background-color: var(--cor-primaria);
+
+    margin: auto auto;
+    border-radius: 5px;
+}
+
+.form-section h3 {
+    color: var(--branco-suave);
+    text-align: center;
+    font-size: 2rem;
+    margin: 5% 0;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-login label {
+    color: var(--branco-suave);
+    font-size: 1.5rem;
+    margin: 0 10%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.form-login label:nth-child(2) {
+    margin-top: 3%;
+}
+
+.input-email-login,
+.input-password-login {
+    margin-top: 2%;
+    padding-left: 2%;
+
+    height: 5vh;
+    border: none;
+    border-radius: 5px;
+
+    background-color: var(--input-bg);
+}
+
+.input-button-login {
+    width: 30%;
+    height: 7vh;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    background-color: var(--input-bg);
+    color: var(--cor-primaria);
+
+    border: none;
+    border-radius: 5px;
+
+    margin: auto auto;
+    margin-top: 7%;
+}

@@ -6,6 +6,7 @@ import estilo from './Cabecalho.module.css';
 
 // Importa a imagem do logotipo da aplicação
 import logotipo from '../../assets/wallpaper.png';
+import iconTurn from '../../assets/iconTurn.png';
 // Importa as rotas da aplicação definidas no arquivo de configuração
 import { APP_ROUTES } from '../../appConfig';
 
@@ -23,27 +24,25 @@ function Cabecalho(): JSX.Element {
             <div className={estilo.conexoes}>
                 <a className={estilo.historia} href={APP_ROUTES.ROUTE_HOME}>
                     <h3>
-                        História
+                        HISTÓRIA
                     </h3>
                 </a>
                 <a className={estilo.cardapio} href={APP_ROUTES.ROUTE_HOME}>
                     <h3>
-                        Cardápio
+                        CARDÁPIO
                     </h3>
                 </a>
                 <a className={estilo.carrinho} href={APP_ROUTES.ROUTE_HOME}>
                     <h3>
-                        Carrinho
+                        CARRINHO
                     </h3>
                 </a>
-                </div>
-                <div className={estilo.conexoes2}>
                 <a href={APP_ROUTES.ROUTE_HOME} className={estilo.imgLogo}>
                     {/* Logotipo da aplicação */}
-                    <img src={logotipo} alt="logotipo" />
+                    <img src={iconTurn} alt="iconTurn" />
                 </a>
-
             </div>
+
         </header>
     );
 }

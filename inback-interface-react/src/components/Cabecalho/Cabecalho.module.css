@@ -18,7 +18,7 @@
 
 .cabecalhoprincipal {
     display: flex;
-    width: 15%;
+    width: 20%;
 }
 .imgLogo,
 .imgLogo img {
@@ -27,20 +27,26 @@
 }
 
 .conexoes {
-    width: 70%;
+    margin-left: 200px;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 .historia, .cardapio, .carrinho {
     display: flex;
-    width: 300px;
+    width: 400px;
     height: 73px;
     background-color: #F0BD61;
     align-items: center;
     justify-content: center;
+    margin: 0%
+}
+
+h3 {
+    font-size: 3rem;
+    color: black;
 }
 
 .historia h3, .cardapio h3, .carrinho h3 {
@@ -49,12 +55,10 @@
     display: flex;
 }
 
-.conexoes2{
-    display: flex;
-    width: 15%;
-}
 
-.conexoes2 img {
-    display: flex;
-    height: 252px;
+.conexoes img {
+    margin-top: 60px;
+    margin-left: 80px;
+    height: 125px;
+    width: 125px;
 }

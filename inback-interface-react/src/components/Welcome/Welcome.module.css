@@ -1,15 +1,31 @@
-
+main {
+    background-color: var(--amarelo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .principal p {
     text-align: center;
 }
 
 .principal p:first-child {
-    font-size: 15rem;
+    font-size: 30rem;
     color: var(--azul);
+    margin-bottom: -250px;
 }
 
 .principal p:nth-child(2){
-    font-size: 15rem;
+    font-size: 30rem;
     color: var(--laranja);
+}
+
+.principal p:nth-child(3){
+    font-size: 1rem;
+    color: var(--amarelo);
+}
+
+img {
+  
+  width: 1000px;
 }

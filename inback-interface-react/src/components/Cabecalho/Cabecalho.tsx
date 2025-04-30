@@ -4,7 +4,7 @@ import { JSX } from 'react';
 // Importa os estilos CSS específicos para o componente de cabeçalho
 import estilo from './Cabecalho.module.css';
 
-// Importa a imagem do logotipo da aplicação
+// Importa a imagem para aplicação
 import logotipo from '../../assets/wallpaper.png';
 import iconTurn from '../../assets/iconTurn.png';
 // Importa as rotas da aplicação definidas no arquivo de configuração

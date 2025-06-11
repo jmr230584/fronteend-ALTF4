@@ -1,6 +1,8 @@
 .form-section {
-    width: 35%;
-    height: 50vh;
+    background: url('../assets/background.webp') no-repeat;
+    background-size: cover; /* opcional */
+    width: 100%;
+    height: 100%;
 
     background-color: var(--cor-primaria);
 
@@ -12,37 +14,39 @@
     color: var(--branco-suave);
     text-align: center;
     font-size: 2rem;
-    margin: 5% 0;
+    margin: 1% 0;
 }
 
 .form-login {
+    margin-top: 2%;
     display: flex;
     flex-direction: column;
 }
 
 .form-login label {
-    color: var(--branco-suave);
+    color: #1D3542;
     font-size: 1.5rem;
-    margin: 0 10%;
+    margin: 0 6%;
+    margin-top: 1px;
 
     display: flex;
     flex-direction: column;
 }
 
 .form-login label:nth-child(2) {
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 .input-email-login,
 .input-password-login {
-    margin-top: 2%;
+    margin-top: 0.5%;
     padding-left: 2%;
 
     height: 5vh;
     border: none;
     border-radius: 5px;
 
-    background-color: var(--input-bg);
+    background-color: white;
 }
 
 .input-button-login {
@@ -52,12 +56,16 @@
     font-size: 1.3rem;
     font-weight: bold;
 
-    background-color: var(--input-bg);
-    color: var(--cor-primaria);
+    background-color: #b52f11;
+    color: var(--branco-suave);
 
     border: none;
     border-radius: 5px;
 
     margin: auto auto;
-    margin-top: 7%;
+    margin-top: 1%;
+}
+
+::placeholder {
+    color: black;
 }

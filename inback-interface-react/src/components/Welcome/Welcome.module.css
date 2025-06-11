@@ -24,7 +24,24 @@ main {
     color: var(--amarelo);
 }
 
-img {
-  
-  width: 1000px;
+.hamburguer{
+    width: 1000px;
+}
+
+.familiaInback {
+    display: flex;
+    justify-content: center;
+    margin-left: 250px;
+    width: 900px;
+}
+
+.textoaproveite {
+    margin-top: 200px;
+    font-size: 10rem;
+    text-align: center;
+    color: var(--amarelo);
+    background-color:var(--azul);
+    width: 900px;
+    height: 200px;
+    border-radius: 20px;
 }

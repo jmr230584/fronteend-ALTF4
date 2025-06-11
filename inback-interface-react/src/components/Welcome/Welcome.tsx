@@ -7,6 +7,8 @@ import estilo from './Welcome.module.css';
 // Importa a imagem para aplicação
 import hamburguer from '../../assets/lancheDouble.png'
 
+import familiainback from '../../assets/familiaInback.png';
+
 // Declara o componente funcional Welcome, que retorna uma estrutura JSX
 function Welcome(): JSX.Element {
     return (
@@ -17,10 +19,14 @@ function Welcome(): JSX.Element {
             <p>INBACK</p>
         </div>
         <div>
-            <img src={hamburguer} alt="DoubleInback" />
+            <img src={hamburguer} alt="DoubleInback" className={estilo.hamburguer} />
         </div>
         <div>
             <p>HAMBURGUER DO DIA</p>
+            <img src={familiainback} alt="FamíliaInback" className={estilo.familiaInback} />
+        </div>
+        <div className={estilo.aproveiteagora}>
+            <h1 className={estilo.textoaproveite}>Aproveite Agora</h1>
         </div>
         </main>
     );

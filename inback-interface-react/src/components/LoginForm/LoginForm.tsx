@@ -4,34 +4,56 @@ import { JSX } from 'react';
 // Importa os estilos CSS específicos para o formulário de login
 import estilo from './LoginForm.module.css';
 
+import backgroundImage from '../../assets/background.webp'; // ajuste o caminho relativo
+
 // Declara o componente funcional LoginForm que retorna um elemento JSX
 function LoginForm(): JSX.Element {
     return (
         // Seção principal que contém o formulário de login, com classe de estilo personalizada
-        <section className={estilo['form-section']}>
-            
-            {/* Título do formulário */}
-            <h3>LOGIN</h3>
+        <section 
+            className={estilo['form-section']}
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover' // opcional
+            }}
+        >
             
             {/* Início do formulário com classe de estilo personalizada */}
             <form action="" className={estilo['form-login']}>
 
                 {/* Campo de e-mail com rótulo */}
                 <label>
+                    Nome Completo
+                    <input 
+                        type="type" // Define o tipo do input como e-mail
+                        placeholder='Insira seu nome completo' // Texto de dica para o usuário
+                        className={estilo['input-email-login']} // Classe CSS personalizada
+                    />    
+                </label>
+                <label>
+                    Data de Nascimento
+                    <input 
+                        type="date  " // Define o tipo do input como e-mail
+                        placeholder='Insira sua data de nascimento' // Texto de dica para o usuário
+                        className={estilo['input-email-login']} // Classe CSS personalizada
+                    />    
+                </label>
+                <label>
                     E-mail
                     <input 
                         type="email" // Define o tipo do input como e-mail
-                        placeholder='Informe o seu e-mail' // Texto de dica para o usuário
+                        placeholder='Insira seu email' // Texto de dica para o usuário
                         className={estilo['input-email-login']} // Classe CSS personalizada
                     />    
                 </label>
 
                 {/* Campo de senha com rótulo */}
                 <label>
-                    Senha
+                    Celular
                     <input 
-                        type="password" // Define o tipo do input como senha
-                        placeholder='Informe sua senha' // Texto de dica para o usuário
+                        type="number" // Define o tipo do input como senha
+                        placeholder='Insira seu celular' // Texto de dica para o usuário
                         className={estilo['input-password-login']} // Classe CSS personalizada
                     />    
                 </label>
@@ -39,7 +61,7 @@ function LoginForm(): JSX.Element {
                 {/* Botão de login */}
                 <input 
                     type="button" // Tipo botão (não envia o formulário por padrão)
-                    value="Entrar" // Texto exibido no botão
+                    value="CONFIRMAR CONTA" // Texto exibido no botão
                     className={estilo['input-button-login']} // Classe CSS personalizada
                 />
             </form>

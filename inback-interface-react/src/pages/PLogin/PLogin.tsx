@@ -5,7 +5,7 @@ import Cabecalho from "../../components/Cabecalho/Cabecalho";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
 // Importa o componente de rodapé da aplicação
-import Rodape from "../../components/Rodape/Rodape";
+
 
 // Componente funcional que representa a página de login
 function PLogin() {
@@ -16,9 +16,6 @@ function PLogin() {
 
             {/* Renderiza o formulário de login */}
             <LoginForm />
-
-            {/* Renderiza o rodapé da página */}
-            <Rodape />
         </div>
     );
 }

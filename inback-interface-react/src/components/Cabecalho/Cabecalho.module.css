@@ -1,6 +1,6 @@
 .cabecalho {
     width: 100%;
-    height: 250px;
+    height: 247px;
 
     background-color: #b42e10;
 
@@ -34,7 +34,7 @@
     align-items: center;
 }
 
-.historia, .cardapio, .carrinho {
+.login, .cardapio, .carrinho {
     display: flex;
     width: 400px;
     height: 73px;
@@ -46,10 +46,10 @@
 
 h3 {
     font-size: 3rem;
-    color: black;
+    color: #1D3542
 }
 
-.historia h3, .cardapio h3, .carrinho h3 {
+.login h3, .cardapio h3, .carrinho h3 {
     align-items: center;
     justify-content: center;
     display: flex;

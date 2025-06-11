@@ -1,0 +1,60 @@
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.principal {
+    background-color: var(--amarelo); /* cor de fundo amarelo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 105vh;
+    padding-top: 6rem;
+}
+
+.cardapiotext {
+    text-align: center;
+}
+
+.cardapiotext p:first-child {
+    font-size: 20rem; /* ajuste para não ultrapassar */
+    font-weight: bold;
+    color: var(--azul);
+    margin: 0;
+    line-height: 1.1;
+    font-weight: 700; /* negrito */
+}
+
+.cardapiotext p:nth-child(2) {
+    font-size: 2.5rem;
+    color: var(--azul);
+    font-weight: 500;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.lanche1 {
+    display: flex;
+    width: 100vh;
+    height: 250px;
+    background-color: white;
+}
+
+.lanche1 p{
+    display: flex;
+    font-size: 1.5rem;
+    color: var(--azul);
+    font-weight: 500;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.lanche1 p:first-child {
+    display: flex;
+    justify-content: center;
+    margin-left: 150px;
+}

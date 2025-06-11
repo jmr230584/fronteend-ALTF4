@@ -7,6 +7,8 @@
 export const APP_ROUTES = {
     ROUTE_HOME: '/',
     ROUTE_LOGIN: '/login',
+    ROUTE_CADASTRO: '/cadastro',
+    ROUTE_CARDAPIO: '/cardapio',
 }
 
 /**

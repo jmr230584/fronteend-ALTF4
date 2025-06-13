@@ -50,6 +50,7 @@ function TabelaGerente(): JSX.Element {
                 className={estilo['data-table']} // Classe CSS personalizada
             >
                 {/* Colunas da tabela, baseadas nos campos dos objetos de aluno */}
+                <Column field="idGerente" header="ID Do Gerente" style={{ width: '10%' }} />
                 <Column field="nome" header="Nome" style={{ width: '25%' }} />
                 <Column
                     field="telefone"
@@ -62,7 +63,7 @@ function TabelaGerente(): JSX.Element {
                     }}
                 />
                 <Column field="email" header="Email" style={{ width: '25%' }} />
-                <Column field="senha" header="Senha" style={{ width: '25%' }} /> 
+                <Column field="senha" header="Senha" style={{ width: '15%' }} /> 
                 {/* Coluna personalizada para exibir a data formatada
                 <Column
                     field="dataNascimento"

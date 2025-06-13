@@ -7,6 +7,8 @@ import Cabecalho from '../../../components/Cabecalho/Cabecalho';
 // Importa o componente da tabela que lista os alunos
 import TabelaCliente from '../../../components/Tabelas/TabelaCliente/TabelaCliente';
 import TabelaGerente from '../../../components/Tabelas/TabelaGerente/TabelaGerente';
+import TabelaPrato from '../../../components/Tabelas/TabelaPrato/TabelaPrato';
+import TabelaPedido from '../../../components/Tabelas/TabelaPedido/TabelaPedido';
 
 // Importa o componente de rodapé
 import Rodape from '../../../components/Rodape/Rodape';
@@ -17,12 +19,14 @@ function PListaCliente(): JSX.Element {
         <div className="pagina-grid">
             {/* Renderiza o cabeçalho da página */}
             <Cabecalho />
-
             {/* Renderiza a tabela com a lista de alunos */}
             <TabelaCliente />
 
             <TabelaGerente />
 
+            <TabelaPrato />
+
+            <TabelaPedido />
             {/* Renderiza o rodapé da página */}
             <Rodape />
         </div>

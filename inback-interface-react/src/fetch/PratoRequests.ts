@@ -29,7 +29,7 @@ class PratoRequests {
      * Método que faz uma requisição à API para buscar a lista de alunos cadastrados
      * @returns Retorna um JSON com a lista de alunos ou null em caso de erro
      */
-    async listarAlunos(): Promise<PratoDTO | null> {
+    async listarPratos(): Promise<PratoDTO | null> {
         try {
             // faz a requisição no servidor
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaPrato}`);
@@ -37,16 +37,16 @@ class PratoRequests {
             // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
             if (respostaAPI.ok) {
                 // converte a reposta para um JSON
-                const listaDeAlunos: PratoDTO = await respostaAPI.json();
+                const listaDePratos: PratoDTO = await respostaAPI.json();
                 // retorna a resposta
-                return listaDeAlunos;
+                return listaDePratos;
             }
             
             // retorna um valor nulo caso o servidor não envie a resposta
             return null;
         } catch (error) {
             // exibe detalhes do erro no console
-            console.error(`Erro ao fazer a consulta de alunos: ${error}`);
+            console.error(`Erro ao fazer a consulta de pratos: ${error}`);
             // retorna um valor nulo
             return null;
         }

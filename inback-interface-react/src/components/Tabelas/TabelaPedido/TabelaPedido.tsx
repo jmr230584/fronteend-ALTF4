@@ -5,14 +5,14 @@ import { DataTable } from 'primereact/datatable'; // Tabela responsiva com recur
 import { Column } from 'primereact/Column'; // Representa uma coluna da tabela
 import { Button } from 'primereact/button'; // Botão estilizado da PrimeReact
 // Importa o arquivo CSS com estilos específicos para este componente
-import estilo from './TabelaPrato.module.css';
-import PratoDTO from '../../../interfaces/Pratointerface';
-import PratoRequests from '../../../fetch/PratoRequests';
+import estilo from './TabelaPedido.module.css';
+import PedidoDTO from '../../../interfaces/Pedidointerface';
+import PedidoRequests from '../../../fetch/PedidoRequests';
 
 // Declara o componente funcional TabelaLivro
 function TabelaPrato(): JSX.Element {
     // Hook useState para armazenar a lista de livros
-    const [pratos, setPratos] = useState<PratoDTO[]>([]);
+    const [pedidos, setPedidos] = useState<PedidoDTO[]>([]);
 
     // Botões personalizados para a paginação da tabela (utilizado pelo componente DataTable da lib PrimeReact)
     const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
@@ -20,16 +20,16 @@ function TabelaPrato(): JSX.Element {
 
     // Hook useEffect para buscar os livros na primeira renderização do componente
     useEffect(() => {
-        const fetchPratos = async () => {   // função para fazer a consulta de livros
+        const fetchPedidos = async () => {   // função para fazer a consulta de livros
             try {
-                const listaDePratos = await PratoRequests.listarPratos(); // Chamada assíncrona à API
-                setPratos(Array.isArray(listaDePratos) ? listaDePratos : []); // Atualiza o estado apenas se o retorno for um array
+                const listaDePedidos = await PedidoRequests.listarPedidos(); // Chamada assíncrona à API
+                setPedidos(Array.isArray(listaDePedidos) ? listaDePedidos : []); // Atualiza o estado apenas se o retorno for um array
             } catch (error) {
-                console.error(`Erro ao buscar Pratos: ${error}`); // Exibe erro no console se a requisição falhar
+                console.error(`Erro ao buscar os pedidos: ${error}`); // Exibe erro no console se a requisição falhar
             }
         }
 
-        fetchPratos(); // Executa a função de busca
+        fetchPedidos(); // Executa a função de busca
     }, []); // Array vazio garante que será executado apenas uma vez (montagem do componente)
 
     return (
@@ -39,7 +39,7 @@ function TabelaPrato(): JSX.Element {
 
             {/* Componente DataTable da PrimeReact, responsável por exibir os dados em forma de tabela */}
             <DataTable
-                value={pratos} // Fonte de dados da tabela
+                value={pedidos} // Fonte de dados da tabela
                 paginator // Ativa paginação
                 rows={5} // Mostra 10 registros por página por padrão
                 rowsPerPageOptions={[5, 10, 25, 50]} // Opções que o usuário pode escolher
@@ -51,24 +51,37 @@ function TabelaPrato(): JSX.Element {
                 className={estilo['data-table']} // Classe CSS personalizada
             >
                 {/* Colunas que representam os atributos de cada livro */}
-                <Column field="idPrato" header="ID do Prato" style={{ width: '20%' }} />
-                <Column field="nome" header="Nome" style={{ width: '20%' }} />
-                <Column field="descricao" header="Descrição" style={{ width: '20%' }} />
+                <Column field="idPedido" header="ID DO PEDIDO" style={{ width: '20%' }} />
+                <Column field="idCliente" header="ID DO CLIENTE" style={{ width: '20%' }} />
+                <Column field="idPrato" header="ID DO PRATO" style={{ width: '20%' }} />
                 {/* Coluna personalizada para exibir a data formatada */}
+                 <Column
+                     field="dataPedido"
+                     header="Data do Pedido"
+                     style={{ width: '20%' }}
+                     body={(rowData) => {
+                         const data = new Date(rowData.dataPedido);
+                         const dia = String(data.getDate()).padStart(2, '0');
+                         const mes = String(data.getMonth() + 1).padStart(2, '0');
+                         const ano = data.getFullYear();
+                         return `${dia}/${mes}/${ano}`;
+                     }}
+                 />
+
                 {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
-                <Column
-                    field="preco"
-                    header="Preço"
+                {/* <Column
+                    field="valorAquisicao"
+                    header="Valor de Aquisição"
                     style={{ width: '10%' }}
                     body={(rowData) => {
-                        const valor = Number(rowData.preco); // Converte o valor para número
+                        const valor = Number(rowData.valorAquisicao); // Converte o valor para número
                         return valor.toLocaleString('pt-BR', {
                             style: 'currency',
                             currency: 'BRL',
                         }); // Formata como moeda brasileira
                     }}
-                />
-                <Column field="idGerente" header="ID Do Gerente" style={{ width: '20%' }} />
+                /> */}
+                <Column field="quantidade" header="Quantidade" style={{ width: '20%' }} />
             </DataTable>
         </main>
     );

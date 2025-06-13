@@ -2,10 +2,13 @@
  * Interface para representar os dados do livro recebidos da API
  */
 interface ClienteDTO {
-    nome?: string;               // ID do livro (? indica um parâmetro opcional)
-    email?: string;         // Status do livro no sistema (ativo/inativo)
-    endereco?: string;               // Título do livro
-    telefone?: string;                // Autor do livro
+    idCliente?: number;
+    nome?: string;
+    email?: string;
+    endereco?: string;
+    telefone?: string;
+    senha?: string;
+    statusCliente?: boolean; // Indica se o cliente está ativo ou inativo
 }
 
 export default ClienteDTO;

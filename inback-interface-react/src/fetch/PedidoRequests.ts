@@ -37,9 +37,9 @@ class PedidoRequests {
             // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
             if (respostaAPI.ok) {
                 // converte a reposta para um JSON
-                const listaDeAlunos: PedidoDTO = await respostaAPI.json();
+                const listaDePedidos: PedidoDTO = await respostaAPI.json();
                 // retorna a resposta
-                return listaDeAlunos;
+                return listaDePedidos;
             }
             
             // retorna um valor nulo caso o servidor não envie a resposta

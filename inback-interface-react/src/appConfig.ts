@@ -9,6 +9,8 @@ export const APP_ROUTES = {
     ROUTE_LOGIN: '/login',
     ROUTE_CADASTRO: '/cadastro',
     ROUTE_CARDAPIO: '/cardapio',
+    ROUTE_LISTA_CLIENTE: '/lista/clientes',
+    ROUTE_LISTA_PRATOS: '/lista/gerentes',
 }
 
 /**

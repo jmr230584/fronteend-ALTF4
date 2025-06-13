@@ -2,7 +2,7 @@
 import { JSX } from 'react';
 
 // Importa o componente de cabeçalho da aplicação
-import Cabecalho from "../../components/Cabecalho/Cabecalho";
+import Cabecalho from "../../components/Cabecalho/Cabecalho.jsx";
 
 // Importa o componente de boas-vindas
 import Welcome from "../../components/Welcome/Welcome";

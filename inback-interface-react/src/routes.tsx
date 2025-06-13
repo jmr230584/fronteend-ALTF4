@@ -4,6 +4,7 @@ import PHome from './pages/PHome/PHome';
 import PLogin from './pages/PLogin/PLogin';
 import PCadastro from './pages/PCadastro/PCadastro';
 import PCardapio from './pages/PCardapio/PCardapio';
+import PListaCliente from './pages/PListagem/PListaClientes/PListaCliente';
 
 /**
  * Componente que irá lidar com todas as rotas da aplicação
@@ -21,6 +22,8 @@ function AppRoutes() {
                 <Route path={APP_ROUTES.ROUTE_CADASTRO} element={<PCadastro />} />
 
                 <Route path={APP_ROUTES.ROUTE_CARDAPIO} element={<PCardapio />} />
+
+                <Route path={APP_ROUTES.ROUTE_LISTA_CLIENTE} element={<PListaCliente />} />
             </Routes>
         </BrowserRouter>
     );

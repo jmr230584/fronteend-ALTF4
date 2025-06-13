@@ -12,7 +12,7 @@ import { APP_ROUTES } from '../../appConfig';
 
 // Declara o componente funcional LoginForm que retorna um elemento JSX
 function LoginForm(): JSX.Element {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
 /**
@@ -22,7 +22,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     // evita o recarregamento da página durante a comunicação cliente-servidor
     e.preventDefault();
     // criando um objeto login com username e senha
-    const login = { username: username, senha: senha };
+    const login = { email: email, senha: senha };
     
     try {
         // faz a requsição de login, se sucesso redireciona a página
@@ -57,8 +57,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                         type="email" // Define o tipo do input como e-mail
                         placeholder='Insira seu email' // Texto de dica para o usuário
                         className={estilo['input-email-login']} // Classe CSS personalizada
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </label>

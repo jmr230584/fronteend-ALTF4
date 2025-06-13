@@ -19,7 +19,7 @@ class PedidoRequests {
      */
     constructor() {
         this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-        this.routeListaPedido = '/lista/pedido';    // Rota configurada na API
+        this.routeListaPedido = '/lista/pedidos';    // Rota configurada na API
         this.routeCadastraPedido = '/novo/pedido';    // Rota configurada na API
         this.routeAtualizaPedido = '/atualiza/pedido'; // Rota configurada na API
         this.routeRemovePedido = '/remove/pedido';    // Rota configurada na API

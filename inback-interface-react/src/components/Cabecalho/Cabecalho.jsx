@@ -10,7 +10,7 @@ import logotipo from '../../assets/wallpaper.png';
 import { APP_ROUTES } from '../../appConfig';
 
 // Declara o componente funcional Cabecalho que retorna um elemento JSX
-function Cabecalho() {
+function Cabecalho(){
     return (
         // Define o cabeçalho da aplicação com uma classe CSS personalizada
         <header className={estilo.cabecalho}>
@@ -31,7 +31,7 @@ function Cabecalho() {
                         CARDÁPIO
                     </h3>
                 </a>
-                <a className={estilo.carrinho} href={APP_ROUTES.ROUTE_HOME}>
+                <a className={estilo.carrinho} href={APP_ROUTES.ROUTE_LISTA_CLIENTE}>
                     <h3>
                         CARRINHO
                     </h3>

@@ -19,7 +19,7 @@ class GerenteRequests {
      */
     constructor() {
         this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-        this.routeListaGerente = '/lista/gerente';    // Rota configurada na API
+        this.routeListaGerente = '/lista/gerentes';    // Rota configurada na API
         this.routeCadastraGerente = '/novo/gerente';    // Rota configurada na API
         this.routeAtualizaGerente = '/atualiza/gerente'; // Rota configurada na API
         this.routeRemoveGerente = '/remove/gerente';    // Rota configurada na API
@@ -29,7 +29,7 @@ class GerenteRequests {
      * Método que faz uma requisição à API para buscar a lista de alunos cadastrados
      * @returns Retorna um JSON com a lista de alunos ou null em caso de erro
      */
-    async listarGerente(): Promise<GerenteDTO | null> {
+    async listarGerentes(): Promise<GerenteDTO | null> {
         try {
             // faz a requisição no servidor
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaGerente}`);
@@ -37,9 +37,9 @@ class GerenteRequests {
             // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
             if (respostaAPI.ok) {
                 // converte a reposta para um JSON
-                const listaDeAlunos: GerenteDTO = await respostaAPI.json();
+                const listaDeGerentes: GerenteDTO = await respostaAPI.json();
                 // retorna a resposta
-                return listaDeAlunos;
+                return listaDeGerentes;
             }
 
             // retorna um valor nulo caso o servidor não envie a resposta

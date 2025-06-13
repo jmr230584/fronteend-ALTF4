@@ -19,7 +19,7 @@ class PratoRequests {
      */
     constructor() {
         this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-        this.routeListaPrato = '/lista/prato';    // Rota configurada na API
+        this.routeListaPrato = '/lista/pratos';    // Rota configurada na API
         this.routeCadastraPrato = '/novo/prato';    // Rota configurada na API
         this.routeAtualizaPrato = '/atualiza/prato'; // Rota configurada na API
         this.routeRemovePrato = '/remove/prato';    // Rota configurada na API

@@ -37,7 +37,7 @@ function LoginForm(): JSX.Element {
                 <label>
                     Data de Nascimento
                     <input 
-                        type="date  " // Define o tipo do input como e-mail
+                        type="date " // Define o tipo do input como e-mail
                         placeholder='Insira sua data de nascimento' // Texto de dica para o usuário
                         className={estilo['input-email-login']} // Classe CSS personalizada
                         // value={senha}

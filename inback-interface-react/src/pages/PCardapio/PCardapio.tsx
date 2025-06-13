@@ -1,5 +1,5 @@
 // Importa o componente de cabeçalho da aplicação
-import Cabecalho from "../../components/Cabecalho/Cabecalho";
+import Cabecalho from "../../components/Cabecalho/Cabecalho.jsx";
 import Cardapio from "../../components/Cardapio/Cardapio";
 
 // Importa o componente que contém o formulário de login

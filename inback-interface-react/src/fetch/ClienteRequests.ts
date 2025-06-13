@@ -19,7 +19,7 @@ class ClienteRequests {
      */
     constructor() {
         this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-        this.routeListaCliente = '/lista/cliente';    // Rota configurada na API
+        this.routeListaCliente = '/lista/clientes';    // Rota configurada na API
         this.routeCadastraCliente = '/novo/cliente';    // Rota configurada na API
         this.routeAtualizaCliente = '/atualiza/cliente'; // Rota configurada na API
         this.routeRemoveCliente = '/remove/cliente';    // Rota configurada na API

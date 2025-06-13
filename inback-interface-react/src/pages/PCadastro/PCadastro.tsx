@@ -1,5 +1,5 @@
 // Importa o componente de cabeçalho da aplicação
-import Cabecalho from "../../components/Cabecalho/Cabecalho";
+import Cabecalho from "../../components/Cabecalho/Cabecalho.jsx";
 
 import CadastroForm from "../../components/CadastroForm/CadastroForm";
 

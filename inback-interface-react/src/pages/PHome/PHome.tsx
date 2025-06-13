@@ -10,6 +10,7 @@ import Welcome from "../../components/Welcome/Welcome";
 // Importa o componente de rodapé da aplicação
 import Rodape from "../../components/Rodape/Rodape";
 
+
 // Declara o componente funcional PHome, que representa a página inicial
 function PHome(): JSX.Element {
     return (

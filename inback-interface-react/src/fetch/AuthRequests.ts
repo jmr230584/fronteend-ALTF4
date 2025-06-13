@@ -1,14 +1,16 @@
 // src/fetch/AuthRequests.ts
-import { SERVER_CFG } from '../appConfig';
+/* =====================================================================
+ * Classe para lidar com autenticação (versão TypeScript)
+ * ===================================================================== */
 
-/* ---------- Tipagens ---------- */
-interface LoginData {
+/* ---------- Tipagens auxiliares ---------- */
+export interface LoginData {
   email: string;
   senha: string;
 }
 
-interface Usuario {
-  id: number;
+export interface Usuario {
+  id_usuario: number;
   nome: string;
   email: string;
 }
@@ -21,27 +23,36 @@ interface LoginResponse {
   message?: string;
 }
 
+interface PersistData {
+  token: string;
+  nome: string;
+  email: string;
+  id_usuario: number;
+  nivelAcesso: string;
+}
+
 /* ---------- Classe Singleton ---------- */
 class AuthRequests {
-  private readonly serverUrl = SERVER_CFG.SERVER_URL ?? 'http://localhost:3333';
-  private readonly routeLogin = '/login';
+  private readonly serverUrl: string = 'http://localhost:3333';
+  private readonly routeLogin: string = '/login';
 
   /* === LOGIN ======================================================= */
   async login(credentials: LoginData): Promise<boolean> {
     try {
-      const resp = await fetch(`${this.serverUrl}${this.routeLogin}`, {
+      const response = await fetch(`${this.serverUrl}${this.routeLogin}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
       });
 
-      /* Se o back já devolveu 4xx/5xx, tento extrair a mensagem para exibir */
-      if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
-        throw new Error(err.message ?? 'Falha na comunicação com o servidor');
+      if (!response.ok) {
+        const err = (await response.json().catch(() => ({}))) as {
+          message?: string;
+        };
+        throw new Error(err.message ?? 'Erro ao fazer login');
       }
 
-      const data = (await resp.json()) as LoginResponse;
+      const data = (await response.json()) as LoginResponse;
 
       if (!data.auth) {
         throw new Error(data.message ?? 'Credenciais inválidas');
@@ -49,73 +60,78 @@ class AuthRequests {
 
       this.persistToken({
         token: data.token,
-        usuario: data.usuario,
+        nome: data.usuario.nome,
+        email: data.usuario.email,
+        id_usuario: data.usuario.id_usuario,
         nivelAcesso: data.nivel_acesso
       });
 
       return true;
-    } catch (e) {
-      console.error('[AuthRequests] login error:', e);
-      /* repasso o erro para quem chamou tratar, se preferir */
-      throw e;
+    } catch (error) {
+      console.error('[AuthRequests] login error:', error);
+      throw error;
     }
   }
 
   /* === TOKEN & LOCAL STORAGE ======================================= */
   private persistToken({
     token,
-    usuario,
+    nome,
+    email,
+    id_usuario,
     nivelAcesso
-  }: {
-    token: string;
-    usuario: Usuario;
-    nivelAcesso: string;
-  }): void {
+  }: PersistData): void {
     localStorage.setItem('token', token);
-    localStorage.setItem('nome', usuario.nome);
-    localStorage.setItem('email', usuario.email);
-    localStorage.setItem('idUsuario', String(usuario.id));
+    localStorage.setItem('nome', nome);
+    localStorage.setItem('email', email);
+    localStorage.setItem('id_usuario', String(id_usuario));
     localStorage.setItem('nivelAcesso', nivelAcesso);
     localStorage.setItem('isAuth', 'true');
   }
 
   logout(): void {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('nome');
+    localStorage.removeItem('email');
+    localStorage.removeItem('id_usuario');
+    localStorage.removeItem('nivelAcesso');
+    localStorage.removeItem('isAuth');
     window.location.href = '/login';
   }
 
-  /* === AUXÍLIOS ==================================================== */
-  /** Cabeçalho padrão para requisições protegidas */
-  getAuthHeader(): Record<string, string> {
-    const token = localStorage.getItem('token');
-    return token ? { 'x-access-token': token } : {};
-  }
-
-  /** Dados básicos do usuário logado */
-  getUsuario(): Usuario | null {
-    const id = Number(localStorage.getItem('idUsuario'));
-    const nome = localStorage.getItem('nome');
-    const email = localStorage.getItem('email');
-    if (!id || !nome || !email) return null;
-    return { id, nome, email };
-  }
-
-  /** Verifica expiração do JWT e faz logout se necessário */
+  /* === UTILITÁRIOS ================================================= */
+  /** Verifica se o token JWT é válido; faz logout se expirado. */
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     if (!token) return false;
 
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const now = Math.floor(Date.now() / 1000);
-      if (payload.exp && payload.exp > now) return true;
+      const payload = JSON.parse(atob(token.split('.')[1])) as { exp?: number };
+      const agora = Math.floor(Date.now() / 1000);
+      if (payload.exp && payload.exp > agora) return true;
     } catch {
-      /* alguma coisa estranha no token */
+      // token malformado
     }
 
     this.logout();
     return false;
   }
+
+  /** Cabeçalho padrão para requisições protegidas. */
+  getAuthHeader(): Record<string, string> {
+    const token = localStorage.getItem('token');
+    return token ? { 'x-access-token': token } : {};
+  }
+
+  /** Dados básicos do usuário autenticado ou `null` se não houver. */
+  getUsuario(): Usuario | null {
+    const id = Number(localStorage.getItem('id_usuario'));
+    const nome = localStorage.getItem('nome');
+    const email = localStorage.getItem('email');
+    if (!id || !nome || !email) return null;
+    return { id_usuario: id, nome, email };
+  }
 }
 
+/* ---------- Exporta instância única ---------- */
 export default new AuthRequests();

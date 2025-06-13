@@ -11,7 +11,7 @@
 }
 
 .form-section h3 {
-    color: var(--branco-suave);
+    color: var(--branco-suave); 
     text-align: center;
     font-size: 3rem;
     margin: 1% 0;
@@ -47,6 +47,8 @@
     border-radius: 5px;
 
     background-color: white;
+
+    font-size: 2rem; /* <-- AQUI você define o tamanho da fonte digitada */
 }
 
 .input-button-login {

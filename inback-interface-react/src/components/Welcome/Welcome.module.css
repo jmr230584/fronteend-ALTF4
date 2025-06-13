@@ -5,6 +5,18 @@ main {
     align-items: center;
 }
 
+.boasVindas {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.boasVindas h2 {
+    font-size: 2.5rem;
+    color: #F0BD61;
+}
+
+
+
 .principal p {
     text-align: center;
 }

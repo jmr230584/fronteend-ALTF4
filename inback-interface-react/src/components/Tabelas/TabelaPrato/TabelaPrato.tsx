@@ -51,15 +51,15 @@ function TabelaPrato(): JSX.Element {
                 className={estilo['data-table']} // Classe CSS personalizada
             >
                 {/* Colunas que representam os atributos de cada livro */}
-                <Column field="idPrato" header="ID do Prato" style={{ width: '20%' }} />
-                <Column field="nome" header="Nome" style={{ width: '20%' }} />
-                <Column field="descricao" header="Descrição" style={{ width: '20%' }} />
+                <Column field="idPrato" header="ID do Prato" style={{ width: '15%' }} />
+                <Column field="nome" header="Nome" style={{ width: '35%' }} />
+                <Column field="descricao" header="Descrição" style={{ width: '35%' }} />
                 {/* Coluna personalizada para exibir a data formatada */}
                 {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
                 <Column
                     field="preco"
                     header="Preço"
-                    style={{ width: '10%' }}
+                    style={{ width: '15%' }}
                     body={(rowData) => {
                         const valor = Number(rowData.preco); // Converte o valor para número
                         return valor.toLocaleString('pt-BR', {
@@ -68,7 +68,6 @@ function TabelaPrato(): JSX.Element {
                         }); // Formata como moeda brasileira
                     }}
                 />
-                <Column field="idGerente" header="ID Do Gerente" style={{ width: '20%' }} />
             </DataTable>
         </main>
     );

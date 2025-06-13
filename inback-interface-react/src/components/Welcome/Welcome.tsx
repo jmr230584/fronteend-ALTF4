@@ -1,36 +1,45 @@
-// Importa o tipo JSX do React para tipar corretamente o retorno do componente
-import { JSX } from 'react';
-
-// Importa os estilos CSS específicos para o componente Welcome
+import { useEffect, useState } from 'react';
 import estilo from './Welcome.module.css';
 
-// Importa a imagem para aplicação
-import hamburguer from '../../assets/lancheDouble.png'
-
+import hamburguer from '../../assets/lancheDouble.png';
 import familiainback from '../../assets/familiaInback.png';
 
-// Declara o componente funcional Welcome, que retorna uma estrutura JSX
-function Welcome(): JSX.Element {
-    return (
+function Welcome() {
+    const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
 
+    useEffect(() => {
+        const isAuth = localStorage.getItem('isAuth') === 'false';
+        const nome = localStorage.getItem('username'); //
+        
+        if (isAuth && nome) {
+            setNomeUsuario(nome);
+        }
+    }, []);
+
+    return (
         <main className={estilo.principal}>
-        <div>
-            <p>DOUBLE</p>
-            <p>INBACK</p>
-        </div>
-        <div>
-            <img src={hamburguer} alt="DoubleInback" className={estilo.hamburguer} />
-        </div>
-        <div>
-            <p>HAMBURGUER DO DIA</p>
-            <img src={familiainback} alt="FamíliaInback" className={estilo.familiaInback} />
-        </div>
-        <div className={estilo.aproveiteagora}>
-            <h1 className={estilo.textoaproveite}>Aproveite Agora</h1>
-        </div>
+            {nomeUsuario && (
+                <div className={estilo.boasVindas}>
+                    <h2>Bem-vindo, {nomeUsuario}!</h2>
+                </div>
+            )}
+
+            <div>
+                <p>DOUBLE</p>
+                <p>INBACK</p>
+            </div>
+            <div>
+                <img src={hamburguer} alt="DoubleInback" className={estilo.hamburguer} />
+            </div>
+            <div>
+                <p>HAMBURGUER DO DIA</p>
+                <img src={familiainback} alt="FamíliaInback" className={estilo.familiaInback} />
+            </div>
+            <div className={estilo.aproveiteagora}>
+                <h1 className={estilo.textoaproveite}>Aproveite Agora</h1>
+            </div>
         </main>
     );
 }
 
-// Exporta o componente para que possa ser utilizado em outras partes do projeto
 export default Welcome;

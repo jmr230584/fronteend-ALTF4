@@ -7,6 +7,7 @@ import { Button } from 'primereact/button'; // Componente de botão da PrimeReac
 import { DataTable } from 'primereact/datatable';
 import GerenteDTO from '../../../interfaces/Gerenteinterface';
 import GerenteRequests from '../../../fetch/GerenteRequests';
+import EditIcon from '../../../assets/editar.svg.png';
 /**
  * Componente que exibe uma tabela com os dados dos alunos.
  * Os dados são carregados da API assim que o componente é montado na tela.
@@ -17,10 +18,10 @@ function TabelaGerente(): JSX.Element {
     // Botões personalizados para a paginação da tabela (utilizado pelo componente DataTable da lib PrimeReact)
     const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
     const paginatorRight = <Button type="button" icon="pi pi-download" text />;
- /**
-     * Hook useEffect: executa a função `fetchAlunos` assim que o componente for renderizado.
-     * A função busca os alunos na API e armazena no estado.
-     */
+    /**
+        * Hook useEffect: executa a função `fetchAlunos` assim que o componente for renderizado.
+        * A função busca os alunos na API e armazena no estado.
+        */
     useEffect(() => {
         const fetchGerentes = async () => {   // função para fazer a consulta de alunos
             try {
@@ -35,7 +36,7 @@ function TabelaGerente(): JSX.Element {
     return (
         <main>
             {/* Título da tabela com classe personalizada */}
-            <h1 className={estilo['header-tabela-aluno']}>Lista de Gerentes</h1>
+            <h1 className={estilo['header-tabela-gerente']}>Lista de Gerentes</h1>
             {/* Componente DataTable: renderiza a tabela com os dados dos alunos */}
             <DataTable
                 value={gerentes} // Define os dados que serão exibidos
@@ -54,7 +55,7 @@ function TabelaGerente(): JSX.Element {
                 <Column field="nome" header="Nome" style={{ width: '25%' }} />
                 <Column
                     field="telefone"
-                    header="Celular"   
+                    header="Celular"
                     style={{ width: '25%' }}
                     body={(rowData) => {
                         const celular = rowData.telefone?.replace(/\D/g, '');
@@ -63,7 +64,7 @@ function TabelaGerente(): JSX.Element {
                     }}
                 />
                 <Column field="email" header="Email" style={{ width: '25%' }} />
-                <Column field="senha" header="Senha" style={{ width: '15%' }} /> 
+                <Column field="senha" header="Senha" style={{ width: '15%' }} />
                 {/* Coluna personalizada para exibir a data formatada
                 <Column
                     field="dataNascimento"
@@ -78,6 +79,20 @@ function TabelaGerente(): JSX.Element {
                     }}
                 /> */}
                 {/* Coluna personalizada para exibir o celular formatado */}
+                <Column
+                    header="Ações"
+                    style={{ width: '10%' }}
+                    body={(rowData) => (
+                        <Button
+                            className="p-button-warning"
+                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
+                        >
+                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
+                            Editar
+                        </Button>
+                    )}
+                />
+
             </DataTable>
         </main>
     );

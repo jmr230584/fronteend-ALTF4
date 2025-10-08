@@ -29,28 +29,29 @@ class PedidoRequests {
      * Método que faz uma requisição à API para buscar a lista de alunos cadastrados
      * @returns Retorna um JSON com a lista de alunos ou null em caso de erro
      */
-    async listarPedidos(): Promise<PedidoDTO | null> {
-        try {
-            // faz a requisição no servidor
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeListaPedido}`);
-
-            // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
-            if (respostaAPI.ok) {
-                // converte a reposta para um JSON
-                const listaDePedidos: PedidoDTO = await respostaAPI.json();
-                // retorna a resposta
-                return listaDePedidos;
+async listarPedidos(): Promise<PedidoDTO | null> {
+    const token = localStorage.getItem("token"); // pega o token do localStorage
+    try {
+        const respostaAPI = await fetch(`${this.serverURL}${this.routeListaPedido}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}) // envia no padrão Bearer
             }
-            
-            // retorna um valor nulo caso o servidor não envie a resposta
-            return null;
-        } catch (error) {
-            // exibe detalhes do erro no console
-            console.error(`Erro ao fazer a consulta de alunos: ${error}`);
-            // retorna um valor nulo
-            return null;
+        });
+
+        if (respostaAPI.ok) {
+            const listaDePedidos: PedidoDTO = await respostaAPI.json();
+            return listaDePedidos;
         }
+
+        return null;
+    } catch (error) {
+        console.error(`Erro ao fazer a consulta de pedidos: ${error}`);
+        return null;
     }
+}
+
 }
 
 // Exporta a classe já instanciando um objeto da mesma

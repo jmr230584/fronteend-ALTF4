@@ -8,6 +8,7 @@ import { Button } from 'primereact/button'; // Botão estilizado da PrimeReact
 import estilo from './TabelaPedido.module.css';
 import PedidoDTO from '../../../interfaces/Pedidointerface';
 import PedidoRequests from '../../../fetch/PedidoRequests';
+import EditIcon from '../../../assets/editar.svg.png';
 
 // Declara o componente funcional TabelaLivro
 function TabelaPrato(): JSX.Element {
@@ -35,7 +36,7 @@ function TabelaPrato(): JSX.Element {
     return (
         <main>
             {/* Título da tabela com classe personalizada */}
-            <h1 className={estilo['header-tabela-livro']}>Lista de Pratos</h1>
+            <h1 className={estilo['header-tabela-pedido']}>Lista de Pedidos</h1>
 
             {/* Componente DataTable da PrimeReact, responsável por exibir os dados em forma de tabela */}
             <DataTable
@@ -55,18 +56,18 @@ function TabelaPrato(): JSX.Element {
                 <Column field="idCliente" header="ID DO CLIENTE" style={{ width: '20%' }} />
                 <Column field="idPrato" header="ID DO PRATO" style={{ width: '20%' }} />
                 {/* Coluna personalizada para exibir a data formatada */}
-                 <Column
-                     field="dataPedido"
-                     header="Data do Pedido"
-                     style={{ width: '20%' }}
-                     body={(rowData) => {
-                         const data = new Date(rowData.dataPedido);
-                         const dia = String(data.getDate()).padStart(2, '0');
-                         const mes = String(data.getMonth() + 1).padStart(2, '0');
-                         const ano = data.getFullYear();
-                         return `${dia}/${mes}/${ano}`;
-                     }}
-                 />
+                <Column
+                    field="dataPedido"
+                    header="Data do Pedido"
+                    style={{ width: '20%' }}
+                    body={(rowData) => {
+                        const data = new Date(rowData.dataPedido);
+                        const dia = String(data.getDate()).padStart(2, '0');
+                        const mes = String(data.getMonth() + 1).padStart(2, '0');
+                        const ano = data.getFullYear();
+                        return `${dia}/${mes}/${ano}`;
+                    }}
+                />
 
                 {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
                 {/* <Column
@@ -82,6 +83,20 @@ function TabelaPrato(): JSX.Element {
                     }}
                 /> */}
                 <Column field="quantidade" header="Quantidade" style={{ width: '20%' }} />
+                <Column
+                    header="Ações"
+                    style={{ width: '10%' }}
+                    body={(rowData) => (
+                        <Button
+                            className="p-button-warning"
+                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
+                        >
+                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
+                            Editar
+                        </Button>
+                    )}
+                />
+
             </DataTable>
         </main>
     );

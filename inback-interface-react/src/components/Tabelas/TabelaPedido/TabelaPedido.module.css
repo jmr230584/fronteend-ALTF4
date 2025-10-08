@@ -1,9 +1,12 @@
 /* TabelaAluno.module.css */
 
-.header-tabela-livro {
+.header-tabela-pedido {
     text-align: center;
     margin: 2% auto;
+    color: white;
 }
+
+
 
 .data-table {
     font-family: "Bebas Neue", sans-serif;
@@ -90,4 +93,10 @@
         font-weight: bold;
         margin-right: 1rem;
     }
+}
+.data-table :global(.p-datatable),
+.data-table :global(.p-datatable-thead > tr > th),
+.data-table :global(.p-datatable-tbody > tr > td) {
+    background-color: #ffffff !important;
+    color: #000000 !important;
 }

@@ -1,8 +1,9 @@
 /* TabelaAluno.module.css */
 
-.header-tabela-emprestimo {
+.header-tabela-gerente {
     text-align: center;
     margin: 2% auto;
+    color: white;
 }
 
 .data-table {
@@ -90,4 +91,15 @@
         font-weight: bold;
         margin-right: 1rem;
     }
+}
+/* Força a cor de fundo da tabela para branco */
+.data-table :global(.p-datatable) {
+    background-color: #ffffff !important;
+    color: #000 !important;
+}
+
+/* Força as células da tabela a terem fundo branco */
+.data-table :global(.p-datatable-tbody > tr > td),
+.data-table :global(.p-datatable-thead > tr > th) {
+    background-color: #ffffff !important;
 }

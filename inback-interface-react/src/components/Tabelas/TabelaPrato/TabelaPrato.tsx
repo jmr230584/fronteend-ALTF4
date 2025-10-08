@@ -8,6 +8,7 @@ import { Button } from 'primereact/button'; // Botão estilizado da PrimeReact
 import estilo from './TabelaPrato.module.css';
 import PratoDTO from '../../../interfaces/Pratointerface';
 import PratoRequests from '../../../fetch/PratoRequests';
+import EditIcon from '../../../assets/editar.svg.png';
 
 // Declara o componente funcional TabelaLivro
 function TabelaPrato(): JSX.Element {
@@ -35,7 +36,7 @@ function TabelaPrato(): JSX.Element {
     return (
         <main>
             {/* Título da tabela com classe personalizada */}
-            <h1 className={estilo['header-tabela-livro']}>Lista de Pratos</h1>
+            <h1 className={estilo['header-tabela-prato']}>Lista de Pratos</h1>
 
             {/* Componente DataTable da PrimeReact, responsável por exibir os dados em forma de tabela */}
             <DataTable
@@ -57,17 +58,19 @@ function TabelaPrato(): JSX.Element {
                 {/* Coluna personalizada para exibir a data formatada */}
                 {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
                 <Column
-                    field="preco"
-                    header="Preço"
-                    style={{ width: '15%' }}
-                    body={(rowData) => {
-                        const valor = Number(rowData.preco); // Converte o valor para número
-                        return valor.toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                        }); // Formata como moeda brasileira
-                    }}
+                    header="Ações"
+                    style={{ width: '10%' }}
+                    body={(rowData) => (
+                        <Button
+                            className="p-button-warning"
+                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
+                        >
+                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
+                            Editar
+                        </Button>
+                    )}
                 />
+
             </DataTable>
         </main>
     );

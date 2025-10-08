@@ -7,6 +7,8 @@ import { Button } from 'primereact/button'; // Componente de botão da PrimeReac
 import ClienteRequests from '../../../fetch/ClienteRequests';
 import ClienteDTO from '../../../interfaces/Clienteinterface';
 import { DataTable } from 'primereact/datatable';
+import EditIcon from '../../../assets/editar.svg.png';
+
 /**
  * Componente que exibe uma tabela com os dados dos alunos.
  * Os dados são carregados da API assim que o componente é montado na tela.
@@ -80,6 +82,20 @@ function TabelaCliente(): JSX.Element {
                      }}
                  /> */}
                 {/* Coluna personalizada para exibir o celular formatado */}
+                <Column
+                    header="Ações"
+                    style={{ width: '10%' }}
+                    body={(rowData) => (
+                        <Button
+                            className="p-button-warning"
+                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
+                        >
+                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
+                            Editar
+                        </Button>
+                    )}
+                />
+
             </DataTable>
         </main>
     );

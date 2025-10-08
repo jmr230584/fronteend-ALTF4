@@ -1,8 +1,9 @@
 /* TabelaAluno.module.css */
 
-.header-tabela-livro {
+.header-tabela-prato {
     text-align: center;
     margin: 2% auto;
+    color: white;
 }
 
 .data-table {
@@ -91,3 +92,11 @@
         margin-right: 1rem;
     }
 }
+/* Força fundo branco na tabela */
+.data-table :global(.p-datatable),
+.data-table :global(.p-datatable-thead > tr > th),
+.data-table :global(.p-datatable-tbody > tr > td) {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+

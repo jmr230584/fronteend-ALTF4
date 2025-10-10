@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { JSX } from 'react';
 import estilo from './Cabecalho.module.css';
-import logotipo from '../../assets/wallpaper.png';
 import { APP_ROUTES } from '../../appConfig';
 
 function Cabecalho() {
@@ -25,8 +24,8 @@ function Cabecalho() {
     return (
         <header className={estilo.cabecalho}>
             <div className={estilo.cabelhoprincipal}>
-                <a href={APP_ROUTES.ROUTE_HOME} className={estilo.imgLogo}>
-                    <img src={logotipo} alt="logotipo" />
+                <a href={APP_ROUTES.ROUTE_HOME} className={estilo.home}>
+                    <h3>HOME</h3>
                 </a>
             </div>
 

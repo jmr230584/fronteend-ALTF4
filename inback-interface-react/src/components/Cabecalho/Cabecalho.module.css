@@ -1,65 +1,69 @@
-.cabecalho {
-    width:100%;
-    height: 247px;
+* {
+    text-decoration: none;
+}
 
+.cabecalho {
+    width: 100%;
+    height: 100px; /* altura menor e fixa */
     background-color: #b42e10;
 
     display: flex;
     align-items: center;
+    justify-content: space-around; /* melhor equilíbrio */
+    padding: 0 1.5rem;
+    box-sizing: border-box;
 }
 
-.cabecalho a {
-    color: var(--branco-suave);
-    margin-right: 1%;
-
-    font-size: 1.5rem;
-    text-decoration: none;
-}
-
+/* Remove o espaçamento exagerado */
 .cabecalhoprincipal {
     display: flex;
-    width: 20%;
-}
-.imgLogo,
-.imgLogo img {
-    height: 255px;
-    width: 255px;
+    align-items: center;
 }
 
+
+/* Botões e seções de navegação */
 .conexoes {
-    margin-left: 80px;
-    width: 80%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
-.login, .cardapio, .carrinho, .lista, .sair{
+.home, .login, .cardapio, .carrinho, .lista, .sair {
     display: flex;
-    width: 390px;
-    height: 80px;
+    align-items: center;
+    justify-content: center;
+
+    width: 200px;
+    height: 40px;
     background-color: #F0BD61;
-    align-items: center;
-    justify-content: center;
-    margin: 0%;
-    border-radius: 2px;
+    border-radius: 5px;
+    padding: 0.5rem 2rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 }
 
-h3 {
-    font-size: 3rem;
-    color: #1D3542
+.home:hover, .login:hover, .cardapio:hover, .carrinho:hover, .lista:hover, .sair:hover {
+    background-color: #e2ac3f;
+    transform: scale(1.05);
 }
 
-.login h3, .cardapio h3, .carrinho h3, .lista h3, .sair h3 {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 4.2rem;
+.home h3, .login h3, .cardapio h3, .carrinho h3, .lista h3, .sair h3 {
+    font-size: 1.7rem;
+    color: #1D3542;
+    margin: 40px;
+    text-decoration: none; 
 }
 
-.conexoes img {
-    margin-top: 60px;
-    margin-left: 80px;
-    height: 125px;
-    width: 125px;
+/* Responsivo */
+@media (max-width: 768px) {
+    .cabecalho {
+        flex-direction: column;
+        height: auto;
+        gap: 0.8rem;
+    }
+
+    .conexoes {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }

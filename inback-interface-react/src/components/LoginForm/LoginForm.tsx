@@ -46,7 +46,9 @@ const handleSubmit = async (e: React.FormEvent) => {
         >
 
             <div className={estilo['linkparaocadastro']}>
-                <a href={APP_ROUTES.ROUTE_CADASTRO}>já tem seu cadastro? se não clique aqui</a>
+                
+                <a href={APP_ROUTES.ROUTE_CADASTRO}>já tem seu cadastro? se não clique</a>
+                <a className={estilo.clique} href={APP_ROUTES.ROUTE_CADASTRO}>Aqui</a>
             </div>
 
             {/* Início do formulário com classe de estilo personalizada */}

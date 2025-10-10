@@ -13,7 +13,7 @@
 .form-section h3 {
     color: var(--branco-suave);
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 1% 0;
 }
 
@@ -25,14 +25,12 @@
 
 .form-login label {
     color: #1D3542;
-    font-size: 2.3rem;
-    margin: 0 6%;
-    margin-top: 20px;
-    width: 180vh;
-    height: 11vh;
-
+    font-size: 1.8rem;
+    margin: 10px 6%;
     display: flex;
     flex-direction: column;
+    width: 88%; /* largura mais natural */
+    height: 102px;; /* altura automática */
 }
 
 .form-login label:nth-child(2) {
@@ -54,7 +52,7 @@
 
 .input-button-login {
     width: 30%;
-    height: 7vh;
+    height: 9vh;
 
     font-size: 2.3rem;
     font-weight: bold;
@@ -66,7 +64,7 @@
     border-radius: 5px;
 
     margin: auto auto;
-    margin-top: 1%;
+    margin-top: 2%;
 }
 
 ::placeholder {

@@ -24,6 +24,7 @@ function AppRoutes() {
 
                 <Route path={APP_ROUTES.ROUTE_CARDAPIO} element={<PCardapio />} />
 
+
                 <Route path={APP_ROUTES.ROUTE_LISTA_CLIENTE} element={<ProtectedRoute element={PListaCliente} />} />
             </Routes>
         </BrowserRouter>

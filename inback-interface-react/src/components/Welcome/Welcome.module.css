@@ -21,39 +21,40 @@ main {
     text-align: center;
 }
 
-.principal p:first-child {
-    font-size: 14rem;
+.principal p:nth-child(1) {
+    font-size: 6rem;
     color: var(--azul);
 }
 
 .principal p:nth-child(2){
-    font-size: 14rem;
+    font-size: 8rem;
     color: var(--laranja);
 }
 
 .principal p:nth-child(3){
-    font-size: 1rem;
+    font-size: 10rem;
     color: var(--amarelo);
 }
 
 .hamburguer{
-    width: 1000px;
+    width: 450px;
 }
 
 .familiaInback {
     display: flex;
     justify-content: center;
-    margin-left: 250px;
-    width: 900px;
+    align-items: center;
+    margin-left: 80px;
+    width: 450px;
 }
 
 .textoaproveite {
-    margin-top: 200px;
-    font-size: 10rem;
+    margin-top: 100px;
+    font-size: 5rem;
     text-align: center;
     color: var(--amarelo);
     background-color:var(--azul);
-    width: 900px;
-    height: 200px;
+    width: 500px;
+    height: 100px;
     border-radius: 20px;
 }

@@ -1,0 +1,78 @@
+:root {
+  --amarelo: #f0bd61;
+  --laranja: #c4421a;
+  --azul: #2b2b3b;
+}
+
+.container {
+  background-color: var(--amarelo);
+  min-height: 180vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  font-family: "Arial", sans-serif;
+}
+
+.titulo {
+  font-size: 10rem;
+  font-weight: bold;
+  color: var(--azul);
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0px;
+  padding: 1rem 2rem;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 0.8rem 0;
+}
+
+.imagem {
+  width: 70px;
+  border-radius: 8px;
+}
+
+.texto {
+  flex: 1;
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.trash {
+  width: 24px; /* ajuste o tamanho da imagem */
+  height: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.trash:hover {
+  filter: brightness(0.7); /* efeito de hover */
+}
+
+
+.botao {
+  background-color: var(--laranja);
+  color: white;
+  font-weight: bold;
+  max-height: 60px;
+  border: none;
+  border-radius: 2px;
+  padding: 0.8rem 2rem;
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  cursor: pointer;
+  font-size: 1.9rem;
+  transition: 0.3s;
+}

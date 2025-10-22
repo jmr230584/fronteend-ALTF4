@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { JSX } from 'react';
 import estilo from './Cabecalho.module.css';
 import { APP_ROUTES } from '../../appConfig';
+import perfil from '../../assets/perfil.png';
+
 
 function Cabecalho() {
     const [isAuth, setIsAuth] = useState(false);
@@ -12,47 +13,47 @@ function Cabecalho() {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('nome');
-        localStorage.removeItem('email');
-        localStorage.removeItem('id_usuario');
-        localStorage.removeItem('nivelAcesso');
-        localStorage.removeItem('isAuth');
+        localStorage.clear();
         window.location.href = APP_ROUTES.ROUTE_LOGIN;
     };
 
     return (
         <header className={estilo.cabecalho}>
-            <div className={estilo.cabelhoprincipal}>
-                <a href={APP_ROUTES.ROUTE_HOME} className={estilo.home}>
-                    <h3>HOME</h3>
-                </a>
-            </div>
+            <a href={APP_ROUTES.ROUTE_HOME} className={estilo.botao}>
+                <h3>HOME</h3>
+            </a>
 
-            <div className={estilo.conexoes}>
-                {!isAuth && (
-                    <a className={estilo.login} href={APP_ROUTES.ROUTE_LOGIN}>
-                        <h3>LOGIN</h3>
+            {!isAuth && (
+                <a href={APP_ROUTES.ROUTE_LOGIN} className={estilo.botao}>
+                    <h3>LOGIN</h3>
+                </a>
+            )}
+
+            <a href={APP_ROUTES.ROUTE_CARDAPIO} className={estilo.botao}>
+                <h3>CARDÁPIO</h3>
+            </a>
+            {isAuth &&(
+            <a href={APP_ROUTES.ROUTE_CARRINHO} className={estilo.botao}>
+                <h3>CARRINHO</h3>
+            </a>
+            )}
+
+            {isAuth && (
+                <>
+                    <a href={APP_ROUTES.ROUTE_LISTA_CLIENTE} className={estilo.botao}>
+                        <h3>LISTAS</h3>
                     </a>
-                )}
-                <a className={estilo.cardapio} href={APP_ROUTES.ROUTE_CARDAPIO}>
-                    <h3>CARDÁPIO</h3>
-                </a>
-                <a className={estilo.carrinho} href={APP_ROUTES.ROUTE_HOME}>
-                    <h3>CARRINHO</h3>
-                </a>
+                    <button type="button" className={estilo.botao} onClick={handleLogout}>
+                        <h3>SAIR</h3>
+                    </button>
+                </>
+            )}
 
-                {isAuth && (
-                    <>
-                        <a className={estilo.lista} href={APP_ROUTES.ROUTE_LISTA_CLIENTE}>
-                            <h3>LISTAS</h3>
-                        </a>
-                        <button className={estilo.sair} onClick={handleLogout}>
-                            <h3>SAIR</h3>
-                        </button>
-                    </>
-                )}
-            </div>
+            {isAuth && (
+                <a href={APP_ROUTES.ROUTE_PERFIL}>
+                    <img src={perfil} alt="Perfil" className={estilo.perfil} />
+                </a>
+            )}
         </header>
     );
 }

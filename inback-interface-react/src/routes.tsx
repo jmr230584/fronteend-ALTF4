@@ -6,6 +6,9 @@ import PCadastro from './pages/PCadastro/PCadastro';
 import PCardapio from './pages/PCardapio/PCardapio';
 import PListaCliente from './pages/PListagem/PListaClientes/PListaCliente';
 import ProtectedRoute from './components/Rotas/ProtectedRoutes';
+import PCarrinho from './pages/PCarrinho/PCarrinho';
+import PPagamento from './pages/PPagamento/PPagamento';
+import PPerfil from './pages/PPerfil/PPerfil';
 
 /**
  * Componente que irá lidar com todas as rotas da aplicação
@@ -24,6 +27,11 @@ function AppRoutes() {
 
                 <Route path={APP_ROUTES.ROUTE_CARDAPIO} element={<PCardapio />} />
 
+                <Route path={APP_ROUTES.ROUTE_CARRINHO} element={<PCarrinho />} />
+
+                <Route path={APP_ROUTES.ROUTE_PAGAMENTO} element={<PPagamento />} />
+
+                <Route path={APP_ROUTES.ROUTE_PERFIL} element={<PPerfil/>} />
 
                 <Route path={APP_ROUTES.ROUTE_LISTA_CLIENTE} element={<ProtectedRoute element={PListaCliente} />} />
             </Routes>

@@ -1,60 +1,125 @@
-
 body {
-    padding: 0px;
-    margin: 0px;
+
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
 }
 
 .principal {
-    background-color: var(--amarelo); /* cor de fundo amarelo */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 105vh;
-    padding-top: 6rem;
+  background-color: var(--amarelo);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 700vh;
+  padding-top: 6rem;
 }
 
+/* Título principal */
 .cardapiotext {
+  text-align: center;
+  color: var(--azul);
+  margin-bottom: 3rem;
+}
+
+.cardapiotext h1 {
+  font-size: 12rem;
+  font-weight: 900;
+  margin: 0;
+  line-height: 0.9;
+}
+
+.cardapiotext h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+/* Card de lanche */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 1000px;
+  width: 900px;
+  max-width: 1200px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Coluna da imagem e nome */
+.infoLanche {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 45%;
+}
+
+.infoLanche h3 {
+  font-size: 1.2rem;
+  color: var(--azul);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.imagem img {
+  width: 260px;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* Coluna da descrição */
+.descricao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+.descricao h4 {
+  font-size: 1.2rem;
+  color: var(--azul);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.caixaDescricao {
+  background-color: #f7f7f7;
+  border: 1px solid #dcdcdc;
+  border-radius: 1px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  color: #222;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .card {
+    flex-direction: column;
     text-align: center;
-}
+  }
 
-.cardapiotext p:first-child {
-    font-size: 20rem; /* ajuste para não ultrapassar */
-    font-weight: bold;
-    color: var(--azul);
-    margin: 0;
-    line-height: 1.1;
-    font-weight: 700; /* negrito */
-}
+  .infoLanche,
+  .descricao {
+    width: 100%;
+  }
 
-.cardapiotext p:nth-child(2) {
-    font-size: 2.5rem;
-    color: var(--azul);
-    font-weight: 500;
-    margin-top: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.01em;
-}
+  .imagem img {
+    width: 220px;
+    height: 180px;
+  }
 
-.lanche1 {
-    display: flex;
-    width: 100vh;
-    height: 250px;
-    background-color: white;
-}
-
-.lanche1 p{
-    display: flex;
-    font-size: 1.5rem;
-    color: var(--azul);
-    font-weight: 500;
-    margin-top: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.01em;
-}
-
-.lanche1 p:first-child {
-    display: flex;
-    justify-content: center;
-    margin-left: 150px;
+  .cardapiotext h1 {
+    font-size: 8rem;
+  }
 }

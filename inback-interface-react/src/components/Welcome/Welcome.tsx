@@ -3,6 +3,7 @@ import estilo from './Welcome.module.css';
 
 import hamburguer from '../../assets/lancheDouble.png';
 import familiainback from '../../assets/familiaInback.png';
+import doubleinback from '../../assets/INBACKDOUBLE.png'
 
 function Welcome() {
     const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
@@ -24,9 +25,8 @@ function Welcome() {
                 </div>
             )}
 
-            <div>
-                <p>DOUBLE</p>
-                <p>INBACK</p>
+            <div className={estilo.textoinicial}>
+                <img src={doubleinback} alt="inbackdoubla" className={estilo.textoinicial} />
             </div>
             <div>
                 <img src={hamburguer} alt="DoubleInback" className={estilo.hamburguer} />

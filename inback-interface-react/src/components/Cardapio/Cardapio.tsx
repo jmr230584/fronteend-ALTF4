@@ -1,37 +1,66 @@
-// Importa o tipo JSX do React para tipar corretamente o retorno do componente
-import { JSX } from 'react';
+import { useEffect, useState, JSX } from "react";
+import estilo from "./Cardapio.module.css";
 
-// Importa os estilos CSS específicos para o componente Welcome
-import estilo from './Cardapio.module.css';
-
-// Importa a imagem para aplicação
-
-
-// Declara o componente funcional Welcome, que retorna uma estrutura JSX
-function Cardapio(): JSX.Element {
-    return (
-
-        <main className={estilo.principal}>
-        <div className={estilo['cardapiotext']}>
-            <p>CARDÁPIO</p>
-            <p>frete gratís para toda região (são paulo - sertãozinho)</p>
-        </div>
-        <section>
-            <div className={estilo['lanche1']}>
-                <p>BACKSTAGE MEAT AND HEAT (R$30,00)</p>
-                <div className={estilo['imagemlanche1']}></div>
-                <div className={estilo['descricao']}>
-                    <p>Descrição</p>
-                    </div>
-                
-
-                
-            </div>
-        </section>
-        </main>
-
-    );
+interface Prato {
+  id: number;
+  nome: string;
+  descricao: string;
+  preco: number;
+  imagem?: string; // caso queira exibir imagem depois
 }
 
-// Exporta o componente para que possa ser utilizado em outras partes do projeto
+function Cardapio(): JSX.Element {
+  const [pratos, setPratos] = useState<Prato[]>([]);
+
+  useEffect(() => {
+    const carregarPratos = async () => {
+      try {
+        const resposta = await fetch("http://localhost:3333/lista/pratos/"); // sua rota do backend
+        const dados = await resposta.json();
+        setPratos(dados);
+      } catch (erro) {
+        console.error("Erro ao carregar os pratos:", erro);
+      }
+    };
+
+    carregarPratos();
+  }, []);
+
+  return (
+    <main className={estilo.principal}>
+      <div className={estilo.cardapiotext}>
+        <h1>CARDÁPIO</h1>
+        <h2>FRETE GRÁTIS PARA TODA REGIÃO (SERTÃOZINHO-SP)</h2>
+      </div>
+
+      {/* Exibe dinamicamente os pratos do banco */}
+      {pratos.map((prato) => (
+        <section key={prato.id} className={estilo.card}>
+          <div className={estilo.infoLanche}>
+            <h3>
+              {prato.nome.toUpperCase()} (R${prato.preco.toFixed(2)})
+            </h3>
+
+            <div className={estilo.imagem}>
+              {prato.imagem ? (
+                <img src={prato.imagem} alt={prato.nome} />
+              ) : (
+                <p style={{ color: "#aaa" }}>Imagem indisponível</p>
+              )}
+            </div>
+          </div>
+
+          <div className={estilo.descricao}>
+            <h4>Descrição</h4>
+            <div className={estilo.caixaDescricao}>
+              <p>DESCRIÇÃO:</p>
+              <p>{prato.descricao}</p>
+            </div>
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+}
+
 export default Cardapio;

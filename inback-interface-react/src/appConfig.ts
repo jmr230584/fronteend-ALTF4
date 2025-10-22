@@ -11,6 +11,9 @@ export const APP_ROUTES = {
     ROUTE_CARDAPIO: '/cardapio',
     ROUTE_LISTA_CLIENTE: '/lista/clientes',
     ROUTE_LISTA_PRATOS: '/lista/gerentes',
+    ROUTE_CARRINHO: '/carrinho',
+    ROUTE_PAGAMENTO: '/pagamento',
+    ROUTE_PERFIL: '/perfil'
     
 }
 

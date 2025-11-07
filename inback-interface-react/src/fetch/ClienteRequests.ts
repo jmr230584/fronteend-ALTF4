@@ -1,57 +1,73 @@
-    import { SERVER_CFG } from '../appConfig';
-    import ClienteDTO from '../interfaces/Clienteinterface';
+import { SERVER_CFG } from '../appConfig';
+import ClienteDTO from '../interfaces/Clienteinterface';
 
-    /**
-     * Classe com a coleção de funções que farão as requisições à API
-     * Esta classe representa apenas as requisições da entidade Aluno
-     */
-    class ClienteRequests {
+class ClienteRequests {
 
-        private serverURL: string;          // Variável para o endereço do servidor
-        private routeListaCliente: string;   // Variável para a rota de listagem de alunos
-        private routeCadastraCliente: string; // Variável para a rota de cadastro de aluno
-        private routeAtualizaCliente: string; // Variável para a rota de atualiação de aluno
-        private routeRemoveCliente: string;   // Variável para a rota de remoção do aluno
+    private serverURL: string;
+    private routeListaCliente: string;
+    private routeCadastraCliente: string;
+    private routeAtualizaCliente: string;
+    private routeRemoveCliente: string;
 
-        /**
-         * O construtor é chamado automaticamente quando criamos uma nova instância da classe.
-         * Ele define os valores iniciais das variáveis com base nas configurações da API.
-         */
-        constructor() {
-            this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-            this.routeListaCliente = '/lista/clientes';    // Rota configurada na API
-            this.routeCadastraCliente = '/novo/cliente';    // Rota configurada na API
-            this.routeAtualizaCliente = '/atualiza/cliente'; // Rota configurada na API
-            this.routeRemoveCliente = '/remove/cliente';    // Rota configurada na API
-        }
+    constructor() {
+        this.serverURL = SERVER_CFG.SERVER_URL;
+        this.routeListaCliente = '/lista/clientes';
+        this.routeCadastraCliente = '/novo/cliente';
+        this.routeAtualizaCliente = '/atualiza/cliente';
+        this.routeRemoveCliente = '/remove/cliente';
+    }
 
-        /**
-         * Método que faz uma requisição à API para buscar a lista de alunos cadastrados
-         * @returns Retorna um JSON com a lista de alunos ou null em caso de erro
-         */
-        async listarClientes(): Promise<ClienteDTO | null> {
-            try {
-                // faz a requisição no servidor
-                const respostaAPI = await fetch(`${this.serverURL}${this.routeListaCliente}`);
-
-                // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
-                if (respostaAPI.ok) {
-                    // converte a reposta para um JSON
-                    const listaDeClientes: ClienteDTO = await respostaAPI.json();
-                    // retorna a resposta
-                    return listaDeClientes;
-                }
-                
-                // retorna um valor nulo caso o servidor não envie a resposta
-                return null;
-            } catch (error) {
-                // exibe detalhes do erro no console
-                console.error(`Erro ao fazer a consulta de alunos: ${error}`);
-                // retorna um valor nulo
-                return null;
+    // Lista todos os clientes
+    async listarClientes(): Promise<ClienteDTO[]> {
+        try {
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeListaCliente}`);
+            if (respostaAPI.ok) {
+                const listaDeClientes: ClienteDTO[] = await respostaAPI.json();
+                return listaDeClientes;
             }
+            return [];
+        } catch (error) {
+            console.error(`Erro ao listar clientes: ${error}`);
+            return [];
         }
     }
 
-    // Exporta a classe já instanciando um objeto da mesma
-    export default new ClienteRequests();
+    // Remove um cliente pelo ID
+    async removerCliente(idCliente: number): Promise<boolean> {
+        try {
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemoveCliente}/${idCliente}`, {
+                method: 'DELETE',
+            });
+            return respostaAPI.ok;
+        } catch (error) {
+            console.error(`Erro ao remover cliente: ${error}`);
+            return false;
+        }
+    }
+
+    // Adiciona um novo cliente
+    async criarCliente(cliente: ClienteDTO): Promise<ClienteDTO | null> {
+        try {
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraCliente}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cliente), // envia o cliente em JSON
+            });
+
+            if (respostaAPI.ok) {
+                const novoCliente: ClienteDTO = await respostaAPI.json();
+                return novoCliente;
+            }
+
+            console.error('Erro ao criar cliente: resposta não OK');
+            return null;
+        } catch (error) {
+            console.error(`Erro ao criar cliente: ${error}`);
+            return null;
+        }
+    }
+}
+
+export default new ClienteRequests();

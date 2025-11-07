@@ -1,65 +1,78 @@
-// Importa hooks e tipos do React
 import { JSX, useEffect, useState } from 'react';
-// Importa os componentes da biblioteca PrimeReact
-import { DataTable } from 'primereact/datatable'; // Tabela responsiva com recursos como paginação e ordenação
-import { Column } from 'primereact/Column'; // Representa uma coluna da tabela
-import { Button } from 'primereact/button'; // Botão estilizado da PrimeReact
-// Importa o arquivo CSS com estilos específicos para este componente
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 import estilo from './TabelaPedido.module.css';
 import PedidoDTO from '../../../interfaces/Pedidointerface';
 import PedidoRequests from '../../../fetch/PedidoRequests';
 import EditIcon from '../../../assets/editar.svg.png';
+import DeleteIcon from '../../../assets/lixeira.png';
+import AddIcon from '../../../assets/botao-adicionar.png';
 
-// Declara o componente funcional TabelaLivro
-function TabelaPrato(): JSX.Element {
-    // Hook useState para armazenar a lista de livros
+function TabelaPedido(): JSX.Element {
     const [pedidos, setPedidos] = useState<PedidoDTO[]>([]);
+    const navigate = useNavigate();
 
-    // Botões personalizados para a paginação da tabela (utilizado pelo componente DataTable da lib PrimeReact)
-    const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
-    const paginatorRight = <Button type="button" icon="pi pi-download" text />;
-
-    // Hook useEffect para buscar os livros na primeira renderização do componente
     useEffect(() => {
-        const fetchPedidos = async () => {   // função para fazer a consulta de livros
+        const fetchPedidos = async () => {
             try {
-                const listaDePedidos = await PedidoRequests.listarPedidos(); // Chamada assíncrona à API
-                setPedidos(Array.isArray(listaDePedidos) ? listaDePedidos : []); // Atualiza o estado apenas se o retorno for um array
+                const listaDePedidos = await PedidoRequests.listarPedidos();
+                setPedidos(Array.isArray(listaDePedidos) ? listaDePedidos : []);
             } catch (error) {
-                console.error(`Erro ao buscar os pedidos: ${error}`); // Exibe erro no console se a requisição falhar
+                console.error(`Erro ao buscar os pedidos: ${error}`);
             }
-        }
+        };
+        fetchPedidos();
+    }, []);
 
-        fetchPedidos(); // Executa a função de busca
-    }, []); // Array vazio garante que será executado apenas uma vez (montagem do componente)
+    const handleEditarPedido = (idPedido: number) => {
+        alert(`Editar pedido: ${idPedido}`);
+    };
+
+    const handleRemoverPedido = async (idPedido: number) => {
+        const confirmacao = window.confirm("Deseja realmente apagar este pedido?");
+        if (!confirmacao) return;
+
+        try {
+            const sucesso = await PedidoRequests.removerPedido(idPedido);
+            if (sucesso) setPedidos(prev => prev.filter(p => p.idPedido !== idPedido));
+            else alert("Erro ao remover pedido.");
+        } catch (error) {
+            console.error("Erro ao remover pedido:", error);
+            alert("Erro ao remover pedido.");
+        }
+    };
+
+    const handleAdicionarPedido = () => {
+        navigate('/pedido/novo');
+    };
 
     return (
         <main>
-            {/* Título da tabela com classe personalizada */}
             <h1 className={estilo['header-tabela-pedido']}>Lista de Pedidos</h1>
 
-            {/* Componente DataTable da PrimeReact, responsável por exibir os dados em forma de tabela */}
+            {/* Botão de adicionar abaixo do título */}
+            <Button className={estilo['add-button']} onClick={handleAdicionarPedido} style={{ marginBottom: '1rem' }}>
+                <img src={AddIcon} alt="Adicionar" />
+                Adicionar Pedido
+            </Button>
+
             <DataTable
-                value={pedidos} // Fonte de dados da tabela
-                paginator // Ativa paginação
-                rows={5} // Mostra 10 registros por página por padrão
-                rowsPerPageOptions={[5, 10, 25, 50]} // Opções que o usuário pode escolher
-                tableStyle={{ minWidth: '50rem' }} // Define um estilo mínimo para a tabela
-                paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" // Layout dos controles de paginação
-                currentPageReportTemplate="{first} de {last} total {totalRecords}" // Texto que exibe o status da paginação
-                paginatorLeft={paginatorLeft} // Botão à esquerda da paginação
-                paginatorRight={paginatorRight} // Botão à direita da paginação
-                className={estilo['data-table']} // Classe CSS personalizada
+                value={pedidos}
+                paginator
+                rows={5}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                tableStyle={{ minWidth: '50rem' }}
+                className={estilo['data-table']}
             >
-                {/* Colunas que representam os atributos de cada livro */}
                 <Column field="idPedido" header="ID DO PEDIDO" style={{ width: '20%' }} />
                 <Column field="idCliente" header="ID DO CLIENTE" style={{ width: '20%' }} />
                 <Column field="idPrato" header="ID DO PRATO" style={{ width: '20%' }} />
-                {/* Coluna personalizada para exibir a data formatada */}
                 <Column
                     field="dataPedido"
                     header="Data do Pedido"
-                    style={{ width: '20%' }}
+                    style={{ width: '15%' }}
                     body={(rowData) => {
                         const data = new Date(rowData.dataPedido);
                         const dia = String(data.getDate()).padStart(2, '0');
@@ -68,39 +81,27 @@ function TabelaPrato(): JSX.Element {
                         return `${dia}/${mes}/${ano}`;
                     }}
                 />
-
-                {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
-                {/* <Column
-                    field="valorAquisicao"
-                    header="Valor de Aquisição"
-                    style={{ width: '10%' }}
-                    body={(rowData) => {
-                        const valor = Number(rowData.valorAquisicao); // Converte o valor para número
-                        return valor.toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                        }); // Formata como moeda brasileira
-                    }}
-                /> */}
-                <Column field="quantidade" header="Quantidade" style={{ width: '20%' }} />
+                <Column field="quantidade" header="Quantidade" style={{ width: '15%' }} />
                 <Column
                     header="Ações"
-                    style={{ width: '10%' }}
+                    style={{ width: '30%' }}
                     body={(rowData) => (
-                        <Button
-                            className="p-button-warning"
-                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
-                        >
-                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
-                            Editar
-                        </Button>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <Button className="p-button-warning" style={{ display: 'flex', alignItems: 'center', gap: '4px' }} onClick={() => handleEditarPedido(rowData.idPedido)}>
+                                <img src={EditIcon} alt="Editar" style={{ width: '16px', height: '16px' }} />
+                                Editar
+                            </Button>
+
+                            <Button className="p-button-danger" style={{ display: 'flex', alignItems: 'center', gap: '4px' }} onClick={() => handleRemoverPedido(rowData.idPedido)}>
+                                <img src={DeleteIcon} alt="Apagar" style={{ width: '16px', height: '16px' }} />
+                                Apagar
+                            </Button>
+                        </div>
                     )}
                 />
-
             </DataTable>
         </main>
     );
 }
 
-// Exporta o componente para ser utilizado em outros arquivos
-export default TabelaPrato;
+export default TabelaPedido;

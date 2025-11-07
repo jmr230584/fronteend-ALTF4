@@ -4,6 +4,7 @@ import produtoImg from '../../assets/lancheDouble.png'; // substitua pelo caminh
 import pixImg from '../../assets/forma-de-pagamento.png';
 import cartaoImg from '../../assets/cartao-de-credito.png';
 import boletoImg from '../../assets/economizar.png';
+import { APP_ROUTES } from '../../appConfig';
 
 interface Item {
   id: number;
@@ -67,7 +68,7 @@ function Checkout() {
           <p>Total:</p>
           <p>R$ {subtotal.toFixed(2)}</p>
           <button onClick={finalizarPedido}>Finalizar Pedido</button>
-          <a href="#">← Continuar comprando</a>
+          <a href={APP_ROUTES.ROUTE_CARDAPIO}>← Continuar comprando</a>
         </div>
 
         <div className={styles.pagamento}>

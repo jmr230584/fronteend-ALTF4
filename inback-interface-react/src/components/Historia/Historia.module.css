@@ -1,0 +1,84 @@
+
+.main {
+  background-color: var(--amarelo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: row; 
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  max-width: 1200px;
+  width: 90%;
+  padding: 20px 0;
+}
+
+.textoBox {
+  font-family: Bebas Neue;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.titulo {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #1E3640;
+}
+
+.card {
+  background-color: #B52F11;
+  color: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.6;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  width: 550px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.card p {
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.imgBox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.imgBox img {
+  width: 500px;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .imgBox img {
+    width: 100%;
+    height: auto;
+  }
+}

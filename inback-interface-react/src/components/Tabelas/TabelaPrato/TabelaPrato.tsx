@@ -1,80 +1,85 @@
-// Importa hooks e tipos do React
 import { JSX, useEffect, useState } from 'react';
-// Importa os componentes da biblioteca PrimeReact
-import { DataTable } from 'primereact/datatable'; // Tabela responsiva com recursos como paginação e ordenação
-import { Column } from 'primereact/Column'; // Representa uma coluna da tabela
-import { Button } from 'primereact/button'; // Botão estilizado da PrimeReact
-// Importa o arquivo CSS com estilos específicos para este componente
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 import estilo from './TabelaPrato.module.css';
 import PratoDTO from '../../../interfaces/Pratointerface';
 import PratoRequests from '../../../fetch/PratoRequests';
 import EditIcon from '../../../assets/editar.svg.png';
+import DeleteIcon from '../../../assets/lixeira.png';
+import AddIcon from '../../../assets/botao-adicionar.png';
 
-// Declara o componente funcional TabelaLivro
 function TabelaPrato(): JSX.Element {
-    // Hook useState para armazenar a lista de livros
     const [pratos, setPratos] = useState<PratoDTO[]>([]);
+    const navigate = useNavigate();
 
-    // Botões personalizados para a paginação da tabela (utilizado pelo componente DataTable da lib PrimeReact)
-    const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
-    const paginatorRight = <Button type="button" icon="pi pi-download" text />;
-
-    // Hook useEffect para buscar os livros na primeira renderização do componente
     useEffect(() => {
-        const fetchPratos = async () => {   // função para fazer a consulta de livros
+        const fetchPratos = async () => {
             try {
-                const listaDePratos = await PratoRequests.listarPratos(); // Chamada assíncrona à API
-                setPratos(Array.isArray(listaDePratos) ? listaDePratos : []); // Atualiza o estado apenas se o retorno for um array
+                const listaDePratos = await PratoRequests.listarPratos();
+                setPratos(listaDePratos || []);
             } catch (error) {
-                console.error(`Erro ao buscar Pratos: ${error}`); // Exibe erro no console se a requisição falhar
+                console.error(`Erro ao buscar pratos: ${error}`);
             }
-        }
+        };
+        fetchPratos();
+    }, []);
 
-        fetchPratos(); // Executa a função de busca
-    }, []); // Array vazio garante que será executado apenas uma vez (montagem do componente)
+    const handleRemoverPrato = async (idPrato: number) => {
+        const confirmacao = window.confirm("Deseja realmente apagar este prato?");
+        if (!confirmacao) return;
+
+        try {
+            const sucesso = await PratoRequests.removerPrato(idPrato);
+            if (sucesso) setPratos(prev => prev.filter(p => p.idPrato !== idPrato));
+            else alert("Erro ao remover prato.");
+        } catch (error) {
+            console.error("Erro ao remover prato:", error);
+            alert("Erro ao remover prato.");
+        }
+    };
 
     return (
         <main>
-            {/* Título da tabela com classe personalizada */}
             <h1 className={estilo['header-tabela-prato']}>Lista de Pratos</h1>
 
-            {/* Componente DataTable da PrimeReact, responsável por exibir os dados em forma de tabela */}
+            {/* Botão de adicionar abaixo do título */}
+            <Button className={estilo['add-button']} onClick={() => navigate('/prato/novo')} style={{ marginBottom: '1rem' }}>
+                <img src={AddIcon} alt="Adicionar" />
+                Adicionar Prato
+            </Button>
+
             <DataTable
-                value={pratos} // Fonte de dados da tabela
-                paginator // Ativa paginação
-                rows={5} // Mostra 10 registros por página por padrão
-                rowsPerPageOptions={[5, 10, 25, 50]} // Opções que o usuário pode escolher
-                tableStyle={{ minWidth: '50rem' }} // Define um estilo mínimo para a tabela
-                paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" // Layout dos controles de paginação
-                currentPageReportTemplate="{first} de {last} total {totalRecords}" // Texto que exibe o status da paginação
-                paginatorLeft={paginatorLeft} // Botão à esquerda da paginação
-                paginatorRight={paginatorRight} // Botão à direita da paginação
-                className={estilo['data-table']} // Classe CSS personalizada
+                value={pratos}
+                paginator
+                rows={5}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                tableStyle={{ minWidth: '50rem' }}
+                className={estilo['data-table']}
             >
-                {/* Colunas que representam os atributos de cada livro */}
                 <Column field="idPrato" header="ID do Prato" style={{ width: '15%' }} />
                 <Column field="nome" header="Nome" style={{ width: '35%' }} />
                 <Column field="descricao" header="Descrição" style={{ width: '35%' }} />
-                {/* Coluna personalizada para exibir a data formatada */}
-                {/* Coluna que exibe o valor de aquisição formatado como moeda brasileira */}
                 <Column
                     header="Ações"
-                    style={{ width: '10%' }}
+                    style={{ width: '15%' }}
                     body={(rowData) => (
-                        <Button
-                            className="p-button-warning"
-                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
-                        >
-                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
-                            Editar
-                        </Button>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <Button className="p-button-warning" onClick={() => alert(`Editar prato: ${rowData.nome}`)}>
+                                <img src={EditIcon} alt="Editar" style={{ width: '16px', height: '16px' }} />
+                                Editar
+                            </Button>
+                            <Button className="p-button-danger" onClick={() => handleRemoverPrato(rowData.idPrato)}>
+                                <img src={DeleteIcon} alt="Apagar" style={{ width: '16px', height: '16px' }} />
+                                Apagar
+                            </Button>
+                        </div>
                     )}
                 />
-
             </DataTable>
         </main>
     );
 }
 
-// Exporta o componente para ser utilizado em outros arquivos
 export default TabelaPrato;

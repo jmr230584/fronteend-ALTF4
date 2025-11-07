@@ -1,0 +1,128 @@
+/* ==========================
+   Container do formulário
+   ========================== */
+.editar-cliente-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/background.webp') no-repeat center center;
+    background-size: cover;
+    padding: 2rem;
+}
+
+/* ==========================
+   Formulário
+   ========================== */
+.editar-cliente-form {
+    width: 80%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+.editar-cliente-form h2 {
+    font-size: 2.5rem;
+    color: #1D3542;
+    margin-bottom: 2rem;
+}
+
+/* Labels e inputs */
+.editar-cliente-form label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8rem;
+    color: #1D3542;
+    margin-bottom: 1.5rem;
+}
+
+.editar-cliente-form input[type="text"],
+.editar-cliente-form input[type="email"],
+.editar-cliente-form input[type="password"],
+.editar-cliente-form input[type="date"] {
+    padding: 1rem;
+    font-size: 2rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botão de atualizar */
+.editar-cliente-form button[type="submit"] {
+    width: 50%;
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #b52f11;
+    border: none;
+    border-radius: 8px;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.editar-cliente-form button[type="submit"]:hover {
+    background-color: #a02a0f;
+}
+
+/* Preview da imagem */
+.imagem-preview-container {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 1rem auto;
+    border: 3px solid #b52f11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+.imagem-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imagem-preview-placeholder {
+    color: #999;
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .editar-cliente-form {
+        width: 95%;
+        padding: 2rem 1.5rem;
+    }
+
+    .editar-cliente-form h2 {
+        font-size: 2rem;
+    }
+
+    .editar-cliente-form input[type="text"],
+    .editar-cliente-form input[type="email"],
+    .editar-cliente-form input[type="password"],
+    .editar-cliente-form input[type="date"] {
+        font-size: 1.6rem;
+    }
+
+    .editar-cliente-form button[type="submit"] {
+        font-size: 1.8rem;
+        width: 70%;
+    }
+}

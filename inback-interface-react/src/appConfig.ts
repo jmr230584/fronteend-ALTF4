@@ -13,7 +13,12 @@ export const APP_ROUTES = {
     ROUTE_LISTA_PRATOS: '/lista/gerentes',
     ROUTE_CARRINHO: '/carrinho',
     ROUTE_PAGAMENTO: '/pagamento',
-    ROUTE_PERFIL: '/perfil'
+    ROUTE_PERFIL: '/perfil',
+    ROUTE_HISTORIA: '/historia',
+    ROUTE_CADASTRO_CLIENTE:'/cadastro/cliente',
+    ROUTE_CADASTRO_GERENTE:'/cadastro/gerente',
+    ROUTE_CADASTRO_PEDIDO:'/cadastro/pedido',
+    ROUTE_CADASTRO_PRATO:'/cadastro/prato',
     
 }
 

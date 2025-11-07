@@ -1,96 +1,137 @@
-// Importa o tipo JSX do React para definir o tipo de retorno do componente
-import { JSX } from 'react';
-
-// Importa os estilos CSS específicos para o formulário de login
+import { useState, JSX } from 'react';
 import estilo from './CadastroForm.module.css';
+import backgroundImage from '../../assets/background.webp';
 
-import backgroundImage from '../../assets/background.webp'; // ajuste o caminho relativo
+function CadastroForm(): JSX.Element {
+    const [nome, setNome] = useState('');
+    const [dataNascimento, setDataNascimento] = useState('');
+    const [email, setEmail] = useState('');
+    const [celular, setCelular] = useState('');
+    const [senha, setSenha] = useState('');
+    const [imagem, setImagem] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string | null>(null);
 
-// Declara o componente funcional LoginForm que retorna um elemento JSX
-function LoginForm(): JSX.Element {
+    const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setImagem(file);
+            setPreview(URL.createObjectURL(file)); // mostra preview
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('dataNascimento', dataNascimento);
+        formData.append('email', email);
+        formData.append('celular', celular);
+        formData.append('senha', senha);
+        if (imagem) formData.append('imagemPerfil', imagem);
+
+        try {
+            const response = await fetch('http://localhost:3000/usuario', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            console.log('Usuário cadastrado:', data);
+            alert('Cadastro realizado com sucesso!');
+        } catch (err) {
+            console.error('Erro ao cadastrar:', err);
+            alert('Erro ao cadastrar usuário');
+        }
+    };
+
     return (
-        // Seção principal que contém o formulário de login, com classe de estilo personalizada
-        <section 
+        <section
             className={estilo['form-section']}
             style={{
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover' // opcional
+                backgroundSize: 'cover',
             }}
         >
-            
-            {/* Início do formulário com classe de estilo personalizada */}
-            <form action="" className={estilo['form-login']}>
+            <form className={estilo['form-login']} onSubmit={handleSubmit}>
+                
+                {/* Preview da imagem */}
+                <div className={estilo['imagem-preview-container']}>
+                    {preview ? (
+                        <img src={preview} alt="Preview" className={estilo['imagem-preview']} />
+                    ) : (
+                        <div className={estilo['imagem-preview-placeholder']}>
+                            Selecione uma imagem
+                        </div>
+                    )}
+                </div>
 
-                {/* Campo de e-mail com rótulo */}
+                <label>
+                    Foto de Perfil
+                    <input type="file" accept="image/*" onChange={handleImagemChange} />
+                </label>
+
                 <label>
                     Nome Completo
-                    <input 
-                        type="type" // Define o tipo do input como e-mail
-                        placeholder='Insira seu nome completo' // Texto de dica para o usuário
-                        className={estilo['input-email-login']} // Classe CSS personalizada
-                        // value={senha}
-                        // onChange={(e) => setSenha(e.target.value)}
+                    <input
+                        type="text"
+                        placeholder="Insira seu nome completo"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
                         required
-                    />    
+                    />
                 </label>
+
                 <label>
                     Data de Nascimento
-                    <input 
-                        type="date " // Define o tipo do input como e-mail
-                        placeholder='Insira sua data de nascimento' // Texto de dica para o usuário
-                        className={estilo['input-email-login']} // Classe CSS personalizada
-                        // value={senha}
-                        // onChange={(e) => setSenha(e.target.value)}
+                    <input
+                        type="date"
+                        value={dataNascimento}
+                        onChange={(e) => setDataNascimento(e.target.value)}
                         required
-                    />    
+                    />
                 </label>
+
                 <label>
                     E-mail
-                    <input 
-                        type="email" // Define o tipo do input como e-mail
-                        placeholder='Insira seu email' // Texto de dica para o usuário
-                        className={estilo['input-email-login']} // Classe CSS personalizada
-                        // value={senha}
-                        // onChange={(e) => setSenha(e.target.value)}
+                    <input
+                        type="email"
+                        placeholder="Insira seu email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
-                    />    
+                    />
                 </label>
 
-                {/* Campo de senha com rótulo */}
                 <label>
                     Celular
-                    <input 
-                        type="number" // Define o tipo do input como senha
-                        placeholder='Insira seu celular' // Texto de dica para o usuário
-                        className={estilo['input-password-login']} // Classe CSS personalizada
-                        // value={senha}
-                        // onChange={(e) => setSenha(e.target.value)}
+                    <input
+                        type="text"
+                        placeholder="Insira seu celular"
+                        value={celular}
+                        onChange={(e) => setCelular(e.target.value)}
                         required
-                    />    
-                </label>
-                <label>
-                    Senha
-                    <input 
-                        type="password" // Define o tipo do input como senha
-                        placeholder='Insira sua senha' // Texto de dica para o usuário
-                        className={estilo['input-password-login']} // Classe CSS personalizada
-                        // value={senha}
-                        // onChange={(e) => setSenha(e.target.value)}
-                        required
-                    />    
+                    />
                 </label>
 
-                {/* Botão de login */}
-                <input 
-                    type="submit" // Tipo botão (não envia o formulário por padrão)
-                    value="CONFIRMAR CONTA" // Texto exibido no botão
-                    className={estilo['input-button-login']} // Classe CSS personalizada
+                <label>
+                    Senha
+                    <input
+                        type="password"
+                        placeholder="Insira sua senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                        required
+                    />
+                </label>
+
+                <input
+                    type="submit"
+                    value="CONFIRMAR CONTA"
+                    className={estilo['input-button-login']}
                 />
             </form>
         </section>
     );
 }
 
-// Exporta o componente para ser utilizado em outros arquivos do projeto
-export default LoginForm;
+export default CadastroForm;

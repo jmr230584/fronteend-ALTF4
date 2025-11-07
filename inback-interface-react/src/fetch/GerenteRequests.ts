@@ -1,57 +1,79 @@
 import { SERVER_CFG } from '../appConfig';
 import GerenteDTO from '../interfaces/Gerenteinterface';
 
-/**
- * Classe com a coleção de funções que farão as requisições à API
- * Esta classe representa apenas as requisições da entidade Aluno
- */
 class GerenteRequests {
+    private serverURL: string;
+    private routeListaGerente: string;
+    private routeCadastraGerente: string;
+    private routeAtualizaGerente: string;
+    private routeRemoveGerente: string;
 
-    private serverURL: string;          // Variável para o endereço do servidor
-    private routeListaGerente: string;   // Variável para a rota de listagem de alunos
-    private routeCadastraGerente: string; // Variável para a rota de cadastro de aluno
-    private routeAtualizaGerente: string; // Variável para a rota de atualiação de aluno
-    private routeRemoveGerente: string;   // Variável para a rota de remoção do aluno
-
-    /**
-     * O construtor é chamado automaticamente quando criamos uma nova instância da classe.
-     * Ele define os valores iniciais das variáveis com base nas configurações da API.
-     */
     constructor() {
-        this.serverURL = SERVER_CFG.SERVER_URL;     // Endereço do servidor web
-        this.routeListaGerente = '/lista/gerentes';    // Rota configurada na API
-        this.routeCadastraGerente = '/novo/gerente';    // Rota configurada na API
-        this.routeAtualizaGerente = '/atualiza/gerente'; // Rota configurada na API
-        this.routeRemoveGerente = '/remove/gerente';    // Rota configurada na API
+        this.serverURL = SERVER_CFG.SERVER_URL;
+        this.routeListaGerente = '/lista/gerentes';
+        this.routeCadastraGerente = '/novo/gerente';
+        this.routeAtualizaGerente = '/atualiza/gerente';
+        this.routeRemoveGerente = '/remove/gerente';
+    }
+
+    async listarGerentes(): Promise<GerenteDTO[] | null> {
+        try {
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeListaGerente}`);
+            if (respostaAPI.ok) {
+                const listaDeGerentes: GerenteDTO[] = await respostaAPI.json();
+                return listaDeGerentes;
+            }
+            return null;
+        } catch (error) {
+            console.error(`Erro ao fazer a consulta de gerentes: ${error}`);
+            return null;
+        }
+    }
+
+    async removerGerente(idGerente: number): Promise<boolean> {
+        try {
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemoveGerente}/${idGerente}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': `Bearer ${localStorage.getItem('token')}` // se necessário
+                }
+            });
+
+            return respostaAPI.ok;
+        } catch (error) {
+            console.error(`Erro ao remover gerente: ${error}`);
+            return false;
+        }
     }
 
     /**
-     * Método que faz uma requisição à API para buscar a lista de alunos cadastrados
-     * @returns Retorna um JSON com a lista de alunos ou null em caso de erro
+     * Método para criar um novo gerente na API
+     * @param gerente Dados do gerente a ser criado
+     * @returns O gerente criado ou null em caso de erro
      */
-    async listarGerentes(): Promise<GerenteDTO | null> {
+    async criarGerente(gerente: GerenteDTO): Promise<GerenteDTO | null> {
         try {
-            // faz a requisição no servidor
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeListaGerente}`);
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraGerente}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(gerente),
+            });
 
-            // Verifica se a resposta foi bem-sucedida (status HTTP 200-299)
             if (respostaAPI.ok) {
-                // converte a reposta para um JSON
-                const listaDeGerentes: GerenteDTO = await respostaAPI.json();
-                // retorna a resposta
-                return listaDeGerentes;
+                const novoGerente: GerenteDTO = await respostaAPI.json();
+                return novoGerente;
             }
 
-            // retorna um valor nulo caso o servidor não envie a resposta
+            console.error('Erro ao criar gerente: resposta não OK');
             return null;
         } catch (error) {
-            // exibe detalhes do erro no console
-            console.error(`Erro ao fazer a consulta de alunos: ${error}`);
-            // retorna um valor nulo
+            console.error(`Erro ao criar gerente: ${error}`);
             return null;
         }
     }
 }
 
-// Exporta a classe já instanciando um objeto da mesma
 export default new GerenteRequests();

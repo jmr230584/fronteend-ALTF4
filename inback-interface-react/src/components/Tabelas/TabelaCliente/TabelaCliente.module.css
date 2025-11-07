@@ -1,6 +1,5 @@
-/* TabelaAluno.module.css */
 
-.header-tabela-aluno {
+.header-tabela-cliente {
     text-align: center;
     margin: 2% auto;
     color: white;
@@ -102,4 +101,52 @@
     .data-table :global(.p-datatable-tbody > tr > td) {
         background-color: #ffffff !important;
     
+}
+/* Aplica o estilo do add-button ao p-button-success do PrimeReact (sem mudar TSX) */
+:global(.p-button-success) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* ícone dentro do botão */
+:global(.p-button-success) img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* hover/focus/active */
+:global(.p-button-success:hover),
+:global(.p-button-success:focus) {
+  background-color: #059669 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  outline: none;
+}
+
+:global(.p-button-success:active) {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* responsivo */
+@media (max-width: 480px) {
+  :global(.p-button-success) {
+    padding: 0.45rem 0.85rem !important;
+    font-size: 0.95rem;
+    gap: 6px;
+  }
+
+  :global(.p-button-success) img { width: 18px; height: 18px; }
 }

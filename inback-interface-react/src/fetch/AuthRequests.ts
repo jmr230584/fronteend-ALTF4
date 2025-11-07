@@ -28,7 +28,7 @@ interface PersistData {
   nome: string;
   email: string;
   id_usuario: number;
-  nivelAcesso: string;
+  userType: string;
 }
 
 /* ---------- Classe Singleton ---------- */
@@ -58,13 +58,17 @@ class AuthRequests {
         throw new Error(data.message ?? 'Credenciais inválidas');
       }
 
+      // Persistir os dados no localStorage
       this.persistToken({
         token: data.token,
         nome: data.usuario.nome,
         email: data.usuario.email,
         id_usuario: data.usuario.id_usuario,
-        nivelAcesso: data.nivel_acesso
+        userType: data.nivel_acesso
       });
+
+      // 🔥 Exibir no console o “ticket” (tipo do usuário)
+      console.log(`🎟️ Ticket de acesso: ${data.nivel_acesso.toUpperCase()}`);
 
       return true;
     } catch (error) {
@@ -79,13 +83,13 @@ class AuthRequests {
     nome,
     email,
     id_usuario,
-    nivelAcesso
+    userType
   }: PersistData): void {
     localStorage.setItem('token', token);
     localStorage.setItem('nome', nome);
     localStorage.setItem('email', email);
     localStorage.setItem('id_usuario', String(id_usuario));
-    localStorage.setItem('nivelAcesso', nivelAcesso);
+    localStorage.setItem('userType', userType);
     localStorage.setItem('isAuth', 'true');
   }
 
@@ -94,13 +98,12 @@ class AuthRequests {
     localStorage.removeItem('nome');
     localStorage.removeItem('email');
     localStorage.removeItem('id_usuario');
-    localStorage.removeItem('nivelAcesso');
+    localStorage.removeItem('userType');
     localStorage.removeItem('isAuth');
     window.location.href = '/login';
   }
 
   /* === UTILITÁRIOS ================================================= */
-  /** Verifica se o token JWT é válido; faz logout se expirado. */
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     if (!token) return false;
@@ -117,13 +120,11 @@ class AuthRequests {
     return false;
   }
 
-  /** Cabeçalho padrão para requisições protegidas. */
   getAuthHeader(): Record<string, string> {
     const token = localStorage.getItem('token');
     return token ? { 'x-access-token': token } : {};
   }
 
-  /** Dados básicos do usuário autenticado ou `null` se não houver. */
   getUsuario(): Usuario | null {
     const id = Number(localStorage.getItem('id_usuario'));
     const nome = localStorage.getItem('nome');

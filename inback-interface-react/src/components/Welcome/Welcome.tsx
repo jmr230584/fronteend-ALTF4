@@ -4,6 +4,7 @@ import estilo from './Welcome.module.css';
 import hamburguer from '../../assets/lancheDouble.png';
 import familiainback from '../../assets/familiaInback.png';
 import doubleinback from '../../assets/INBACKDOUBLE.png'
+import { APP_ROUTES } from '../../appConfig';
 
 function Welcome() {
     const [nomeUsuario, setNomeUsuario] = useState<string | null>(null);
@@ -11,7 +12,7 @@ function Welcome() {
     useEffect(() => {
         const isAuth = localStorage.getItem('isAuth') === 'false';
         const nome = localStorage.getItem('username'); //
-        
+
         if (isAuth && nome) {
             setNomeUsuario(nome);
         }
@@ -33,7 +34,14 @@ function Welcome() {
             </div>
             <div>
                 <p>HAMBURGUER DO DIA</p>
-                <img src={familiainback} alt="FamíliaInback" className={estilo.familiaInback} />
+                <a href={APP_ROUTES.ROUTE_HISTORIA}>
+                    <img
+                        src={familiainback}
+                        alt="FamíliaInback"
+                        className={estilo.familiaInback}
+                    />
+                </a>
+
             </div>
             <div className={estilo.aproveiteagora}>
                 <h1 className={estilo.textoaproveite}>Aproveite Agora</h1>

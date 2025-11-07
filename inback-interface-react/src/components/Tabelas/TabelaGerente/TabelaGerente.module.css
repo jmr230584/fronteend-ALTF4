@@ -1,9 +1,40 @@
-/* TabelaAluno.module.css */
-
 .header-tabela-gerente {
     text-align: center;
     margin: 2% auto;
     color: white;
+}
+
+/* Botão de adicionar padronizado */
+.add-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.add-button:hover {
+    background-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .data-table {
@@ -11,7 +42,6 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
     margin: 5% auto 0 auto;
     width: 90%;
 }
@@ -52,7 +82,7 @@
 }
 
 .data-table :global(.p-paginator .p-paginator-pages .p-paginator-page.p-highlight) {
-    background-color: #2563eb;
+    background-color: #059669;
     color: white;
     border-radius: 4px;
 }
@@ -92,14 +122,11 @@
         margin-right: 1rem;
     }
 }
-/* Força a cor de fundo da tabela para branco */
-.data-table :global(.p-datatable) {
-    background-color: #ffffff !important;
-    color: #000 !important;
-}
 
-/* Força as células da tabela a terem fundo branco */
-.data-table :global(.p-datatable-tbody > tr > td),
-.data-table :global(.p-datatable-thead > tr > th) {
+/* Fundo branco forçado na tabela */
+.data-table :global(.p-datatable),
+.data-table :global(.p-datatable-thead > tr > th),
+.data-table :global(.p-datatable-tbody > tr > td) {
     background-color: #ffffff !important;
+    color: #000000 !important;
 }

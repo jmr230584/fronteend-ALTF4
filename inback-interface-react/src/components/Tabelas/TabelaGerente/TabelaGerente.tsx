@@ -1,57 +1,72 @@
-// // Importa os hooks e componentes necessários
-import { JSX, useEffect, useState } from 'react'; // Hooks do React para trabalhar com estado e efeitos colaterais
-// Importa o arquivo CSS com estilos específicos para este componente
-import estilo from './TabelaGerente.module.css'; // Importa os estilos específicos para este componenteimport { DataTable } from 'primereact/datatable'; // Componente de tabela da biblioteca PrimeReact
-import { Column } from 'primereact/Column'; // Componente de coluna da tabela
-import { Button } from 'primereact/button'; // Componente de botão da PrimeReact
+import { JSX, useEffect, useState } from 'react';
 import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
+import estilo from './TabelaGerente.module.css';
 import GerenteDTO from '../../../interfaces/Gerenteinterface';
 import GerenteRequests from '../../../fetch/GerenteRequests';
 import EditIcon from '../../../assets/editar.svg.png';
-/**
- * Componente que exibe uma tabela com os dados dos alunos.
- * Os dados são carregados da API assim que o componente é montado na tela.
- */
+import DeleteIcon from '../../../assets/lixeira.png';
+import AddIcon from '../../../assets/botao-adicionar.png';
+
 function TabelaGerente(): JSX.Element {
-    // Hook useState: cria uma variável de estado chamada `alunos` para armazenar os dados dos alunos
     const [gerentes, setGerentes] = useState<GerenteDTO[]>([]);
-    // Botões personalizados para a paginação da tabela (utilizado pelo componente DataTable da lib PrimeReact)
-    const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
-    const paginatorRight = <Button type="button" icon="pi pi-download" text />;
-    /**
-        * Hook useEffect: executa a função `fetchAlunos` assim que o componente for renderizado.
-        * A função busca os alunos na API e armazena no estado.
-        */
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const fetchGerentes = async () => {   // função para fazer a consulta de alunos
+        const fetchGerentes = async () => {
             try {
-                const listaDeGerentes = await GerenteRequests.listarGerentes(); // Requisição à API
-                setGerentes(Array.isArray(listaDeGerentes) ? listaDeGerentes : []); // Atualiza o estado com os dados
+                const listaDeGerentes = await GerenteRequests.listarGerentes();
+                setGerentes(Array.isArray(listaDeGerentes) ? listaDeGerentes : []);
             } catch (error) {
-                console.error(`Erro ao buscar gerentes: ${error}`); // Exibe erro no console se a requisição falhar
+                console.error(`Erro ao buscar gerentes: ${error}`);
             }
         };
-        fetchGerentes();  // Executa a função de busca
-    }, []); // Array vazio garante que será executado apenas uma vez (montagem do componente)
+        fetchGerentes();
+    }, []);
+
+    const handleRemoverGerente = async (idGerente: number) => {
+        const confirmacao = window.confirm("Deseja realmente apagar este gerente?");
+        if (!confirmacao) return;
+
+        try {
+            const sucesso = await GerenteRequests.removerGerente(idGerente);
+            if (sucesso) {
+                setGerentes(prev => prev.filter(g => g.idGerente !== idGerente));
+                alert("Gerente removido com sucesso!");
+            } else {
+                alert("Erro ao remover gerente.");
+            }
+        } catch (error) {
+            console.error("Erro ao remover gerente:", error);
+            alert("Erro ao remover gerente.");
+        }
+    };
+
+    const handleAdicionarGerente = () => {
+        navigate('/gerente/novo');
+    };
+
     return (
         <main>
-            {/* Título da tabela com classe personalizada */}
             <h1 className={estilo['header-tabela-gerente']}>Lista de Gerentes</h1>
-            {/* Componente DataTable: renderiza a tabela com os dados dos alunos */}
+
+            {/* Botão de adicionar abaixo do título */}
+            <Button className={estilo['add-button']} onClick={handleAdicionarGerente} style={{ marginBottom: '1rem' }}>
+                <img src={AddIcon} alt="Adicionar" />
+                Adicionar Gerente
+            </Button>
+
             <DataTable
-                value={gerentes} // Define os dados que serão exibidos
-                paginator // Habilita paginação
-                rows={5} // Quantidade de linhas por página
-                rowsPerPageOptions={[5, 10, 25, 50]} // Opções de linhas por página
-                tableStyle={{ minWidth: '50rem' }} // Estilização mínima da tabela
-                paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" // Template da paginação
-                currentPageReportTemplate="{first} de {last} total {totalRecords}" // Template do relatório da página
-                paginatorLeft={paginatorLeft} // Botão à esquerda da paginação
-                paginatorRight={paginatorRight} // Botão à direita da paginação
-                className={estilo['data-table']} // Classe CSS personalizada
+                value={gerentes}
+                paginator
+                rows={5}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                tableStyle={{ minWidth: '50rem' }}
+                className={estilo['data-table']}
             >
-                {/* Colunas da tabela, baseadas nos campos dos objetos de aluno */}
-                <Column field="idGerente" header="ID Do Gerente" style={{ width: '10%' }} />
+                <Column field="idGerente" header="ID do Gerente" style={{ width: '10%' }} />
                 <Column field="nome" header="Nome" style={{ width: '25%' }} />
                 <Column
                     field="telefone"
@@ -65,36 +80,25 @@ function TabelaGerente(): JSX.Element {
                 />
                 <Column field="email" header="Email" style={{ width: '25%' }} />
                 <Column field="senha" header="Senha" style={{ width: '15%' }} />
-                {/* Coluna personalizada para exibir a data formatada
-                <Column
-                    field="dataNascimento"
-                    header="Data Nascimento"
-                    style={{ width: '15%' }}
-                    body={(rowData) => {
-                        const data = new Date(rowData.dataNascimento);
-                        const dia = String(data.getDate()).padStart(2, '0');
-                        const mes = String(data.getMonth() + 1).padStart(2, '0');
-                        const ano = data.getFullYear();
-                        return `${dia}/${mes}/${ano}`;
-                    }}
-                /> */}
-                {/* Coluna personalizada para exibir o celular formatado */}
                 <Column
                     header="Ações"
-                    style={{ width: '10%' }}
+                    style={{ width: '15%' }}
                     body={(rowData) => (
-                        <Button
-                            className="p-button-warning"
-                            onClick={() => alert(`Editar cliente: ${rowData.nome}`)}
-                        >
-                            <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
-                            Editar
-                        </Button>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <Button className="p-button-warning" onClick={() => alert(`Editar gerente: ${rowData.nome}`)}>
+                                <img src={EditIcon} alt="Editar" style={{ width: '16px', marginRight: '4px' }} />
+                                Editar
+                            </Button>
+                            <Button className="p-button-danger" onClick={() => handleRemoverGerente(rowData.idGerente)}>
+                                <img src={DeleteIcon} alt="Apagar" style={{ width: '16px', marginRight: '4px' }} />
+                                Apagar
+                            </Button>
+                        </div>
                     )}
                 />
-
             </DataTable>
         </main>
     );
 }
+
 export default TabelaGerente;

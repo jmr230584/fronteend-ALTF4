@@ -4,27 +4,25 @@ import backgroundImage from '../../../assets/background.webp';
 
 function CadastroCliente(): JSX.Element {
     const [nome, setNome] = useState('');
-    const [telefone, setTelefone] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [endereco, setEndereco] = useState('');
+    const [telefone, setTelefone] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const cliente = {
-            nome,
-            telefone,
-            email,
-            senha,
-            endereco,
-        };
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('email', email);
+        formData.append('senha', senha);
+        formData.append('endereco', endereco);
+        formData.append('telefone', telefone);
 
         try {
-            const response = await fetch('http://localhost:3000/cliente', {
+            const response = await fetch('http://localhost:3333/novo/cliente', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cliente),
+                body: formData,
             });
 
             const data = await response.json();
@@ -33,10 +31,10 @@ function CadastroCliente(): JSX.Element {
             if (response.ok) {
                 alert('Cliente cadastrado com sucesso!');
                 setNome('');
-                setTelefone('');
                 setEmail('');
                 setSenha('');
                 setEndereco('');
+                setTelefone('');
             } else {
                 alert('Erro: ' + data);
             }
@@ -70,21 +68,10 @@ function CadastroCliente(): JSX.Element {
                 </label>
 
                 <label>
-                    Telefone
-                    <input
-                        type="text"
-                        placeholder="Insira seu telefone"
-                        value={telefone}
-                        onChange={(e) => setTelefone(e.target.value)}
-                        required
-                    />
-                </label>
-
-                <label>
                     E-mail
                     <input
                         type="email"
-                        placeholder="Insira seu e-mail"
+                        placeholder="Insira seu email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -95,7 +82,7 @@ function CadastroCliente(): JSX.Element {
                     Senha
                     <input
                         type="password"
-                        placeholder="Crie uma senha"
+                        placeholder="Insira sua senha"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
                         required
@@ -106,9 +93,20 @@ function CadastroCliente(): JSX.Element {
                     Endereço
                     <input
                         type="text"
-                        placeholder="Insira seu endereço completo"
+                        placeholder="Insira seu endereço"
                         value={endereco}
                         onChange={(e) => setEndereco(e.target.value)}
+                        required
+                    />
+                </label>
+
+                <label>
+                    Telefone
+                    <input
+                        type="text"
+                        placeholder="Insira seu telefone"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
                         required
                     />
                 </label>

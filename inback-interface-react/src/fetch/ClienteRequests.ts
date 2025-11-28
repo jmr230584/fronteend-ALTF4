@@ -10,14 +10,14 @@ class ClienteRequests {
     private routeRemoveCliente: string;
 
     constructor() {
-        this.serverURL = SERVER_CFG.SERVER_URL;
+        // Certifique-se que SERVER_CFG.SERVER_URL não termina com '/' (ex: http://localhost:3333)
+        this.serverURL = SERVER_CFG.SERVER_URL.replace(/\/+$/, '');
         this.routeListaCliente = '/lista/clientes';
         this.routeCadastraCliente = '/novo/cliente';
         this.routeAtualizaCliente = '/atualiza/cliente';
         this.routeRemoveCliente = '/remove/cliente';
     }
 
-    // Lista todos os clientes
     async listarClientes(): Promise<ClienteDTO[]> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaCliente}`);
@@ -32,20 +32,30 @@ class ClienteRequests {
         }
     }
 
-    // Remove um cliente pelo ID
+    // Remove cliente usando PUT na query string: /remove/cliente?idCliente=XX
     async removerCliente(idCliente: number): Promise<boolean> {
         try {
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemoveCliente}/${idCliente}`, {
-                method: 'DELETE',
+            const url = `${this.serverURL}${this.routeRemoveCliente}?idCliente=${idCliente}`;
+
+            const respostaAPI = await fetch(url, {
+                method: 'PUT', // -> conforme seu backend espera
+                // headers: { 'Content-Type': 'application/json' } // não necessário se não enviar body
             });
-            return respostaAPI.ok;
+
+            if (respostaAPI.ok) {
+                return true;
+            } else {
+                // loga texto de erro para ajudar no debug
+                const text = await respostaAPI.text();
+                console.error(`Falha ao remover cliente. status=${respostaAPI.status} resposta=${text}`);
+                return false;
+            }
         } catch (error) {
             console.error(`Erro ao remover cliente: ${error}`);
             return false;
         }
     }
 
-    // Adiciona um novo cliente
     async criarCliente(cliente: ClienteDTO): Promise<ClienteDTO | null> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraCliente}`, {
@@ -53,7 +63,7 @@ class ClienteRequests {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(cliente), // envia o cliente em JSON
+                body: JSON.stringify(cliente),
             });
 
             if (respostaAPI.ok) {

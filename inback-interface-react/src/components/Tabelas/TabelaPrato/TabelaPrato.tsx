@@ -14,6 +14,7 @@ function TabelaPrato(): JSX.Element {
     const [pratos, setPratos] = useState<PratoDTO[]>([]);
     const navigate = useNavigate();
 
+    // Carrega os pratos ao abrir a página
     useEffect(() => {
         const fetchPratos = async () => {
             try {
@@ -26,14 +27,24 @@ function TabelaPrato(): JSX.Element {
         fetchPratos();
     }, []);
 
+    // Remove o prato usando o backend existente (/remove/prato?idPrato=)
     const handleRemoverPrato = async (idPrato: number) => {
         const confirmacao = window.confirm("Deseja realmente apagar este prato?");
         if (!confirmacao) return;
 
         try {
-            const sucesso = await PratoRequests.removerPrato(idPrato);
-            if (sucesso) setPratos(prev => prev.filter(p => p.idPrato !== idPrato));
-            else alert("Erro ao remover prato.");
+            const response = await fetch(`http://localhost:3000/remove/prato?idPrato=${idPrato}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                setPratos(prev => prev.filter(p => p.idPrato !== idPrato));
+                alert("Prato removido com sucesso!");
+            } else {
+                const erroTexto = await response.text();
+                console.error("Erro ao remover prato:", erroTexto);
+                alert("Erro ao remover prato.");
+            }
         } catch (error) {
             console.error("Erro ao remover prato:", error);
             alert("Erro ao remover prato.");
@@ -44,8 +55,12 @@ function TabelaPrato(): JSX.Element {
         <main>
             <h1 className={estilo['header-tabela-prato']}>Lista de Pratos</h1>
 
-            {/* Botão de adicionar abaixo do título */}
-            <Button className={estilo['add-button']} onClick={() => navigate('/prato/novo')} style={{ marginBottom: '1rem' }}>
+            {/* Botão de adicionar */}
+            <Button
+                className={estilo['add-button']}
+                onClick={() => navigate('/prato/novo')}
+                style={{ marginBottom: '1rem' }}
+            >
                 <img src={AddIcon} alt="Adicionar" />
                 Adicionar Prato
             </Button>
@@ -66,11 +81,17 @@ function TabelaPrato(): JSX.Element {
                     style={{ width: '15%' }}
                     body={(rowData) => (
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <Button className="p-button-warning" onClick={() => alert(`Editar prato: ${rowData.nome}`)}>
+                            <Button
+                                className="p-button-warning"
+                                onClick={() => alert(`Editar prato: ${rowData.nome}`)}
+                            >
                                 <img src={EditIcon} alt="Editar" style={{ width: '16px', height: '16px' }} />
                                 Editar
                             </Button>
-                            <Button className="p-button-danger" onClick={() => handleRemoverPrato(rowData.idPrato)}>
+                            <Button
+                                className="p-button-danger"
+                                onClick={() => handleRemoverPrato(rowData.idPrato)}
+                            >
                                 <img src={DeleteIcon} alt="Apagar" style={{ width: '16px', height: '16px' }} />
                                 Apagar
                             </Button>

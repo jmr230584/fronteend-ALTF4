@@ -4,36 +4,27 @@ import backgroundImage from '../../assets/background.webp';
 
 function CadastroForm(): JSX.Element {
     const [nome, setNome] = useState('');
-    const [dataNascimento, setDataNascimento] = useState('');
     const [email, setEmail] = useState('');
-    const [celular, setCelular] = useState('');
     const [senha, setSenha] = useState('');
-    const [imagem, setImagem] = useState<File | null>(null);
-    const [preview, setPreview] = useState<string | null>(null);
-
-    const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setImagem(file);
-            setPreview(URL.createObjectURL(file)); // mostra preview
-        }
-    };
+    const [endereco, setEndereco] = useState('');
+    const [telefone, setTelefone] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         const formData = new FormData();
         formData.append('nome', nome);
-        formData.append('dataNascimento', dataNascimento);
         formData.append('email', email);
-        formData.append('celular', celular);
         formData.append('senha', senha);
-        if (imagem) formData.append('imagemPerfil', imagem);
+        formData.append('endereco', endereco);
+        formData.append('telefone', telefone);
 
         try {
-            const response = await fetch('http://localhost:3000/usuario', {
+            const response = await fetch('http://localhost:3333/novo/cliente', {
                 method: 'POST',
                 body: formData,
             });
+
             const data = await response.json();
             console.log('Usuário cadastrado:', data);
             alert('Cadastro realizado com sucesso!');
@@ -53,22 +44,6 @@ function CadastroForm(): JSX.Element {
             }}
         >
             <form className={estilo['form-login']} onSubmit={handleSubmit}>
-                
-                {/* Preview da imagem */}
-                <div className={estilo['imagem-preview-container']}>
-                    {preview ? (
-                        <img src={preview} alt="Preview" className={estilo['imagem-preview']} />
-                    ) : (
-                        <div className={estilo['imagem-preview-placeholder']}>
-                            Selecione uma imagem
-                        </div>
-                    )}
-                </div>
-
-                <label>
-                    Foto de Perfil
-                    <input type="file" accept="image/*" onChange={handleImagemChange} />
-                </label>
 
                 <label>
                     Nome Completo
@@ -77,16 +52,6 @@ function CadastroForm(): JSX.Element {
                         placeholder="Insira seu nome completo"
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
-                        required
-                    />
-                </label>
-
-                <label>
-                    Data de Nascimento
-                    <input
-                        type="date"
-                        value={dataNascimento}
-                        onChange={(e) => setDataNascimento(e.target.value)}
                         required
                     />
                 </label>
@@ -103,23 +68,34 @@ function CadastroForm(): JSX.Element {
                 </label>
 
                 <label>
-                    Celular
-                    <input
-                        type="text"
-                        placeholder="Insira seu celular"
-                        value={celular}
-                        onChange={(e) => setCelular(e.target.value)}
-                        required
-                    />
-                </label>
-
-                <label>
                     Senha
                     <input
                         type="password"
                         placeholder="Insira sua senha"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
+                        required
+                    />
+                </label>
+
+                <label>
+                    Endereço
+                    <input
+                        type="text"
+                        placeholder="Insira seu endereço"
+                        value={endereco}
+                        onChange={(e) => setEndereco(e.target.value)}
+                        required
+                    />
+                </label>
+
+                <label>
+                    Telefone
+                    <input
+                        type="text"
+                        placeholder="Insira seu telefone"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
                         required
                     />
                 </label>

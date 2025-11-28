@@ -11,6 +11,7 @@ import PPagamento from './pages/PPagamento/PPagamento';
 import PPerfil from './pages/PPerfil/PPerfil';
 import PCadastroCliente from './pages/PCadastros/PCadastroCliente/PCadastroCliente';
 import PHistoria from './pages/PHistoria/PHistoria';
+import PCadastroGerente from './pages/PCadastros/PCadastroGerente/PCadastroGerente';
 
 /**
  * Componente que irá lidar com todas as rotas da aplicação
@@ -30,10 +31,10 @@ function AppRoutes() {
                 <Route path={APP_ROUTES.ROUTE_CADASTRO_CLIENTE} element={<PCadastroCliente />} />
 
                 <Route path={APP_ROUTES.ROUTE_HISTORIA} element={<PHistoria />} />
-{/* 
+
                 <Route path={APP_ROUTES.ROUTE_CADASTRO_GERENTE} element={<PCadastroGerente />} />
 
-                <Route path={APP_ROUTES.ROUTE_CADASTRO_PEDIDO} element={<PCadastroPedido />} />
+                {/* <Route path={APP_ROUTES.ROUTE_CADASTRO_PEDIDO} element={<PCadastroPedido />} />
 
                 <Route path={APP_ROUTES.ROUTE_CADASTRO_PRATO} element={<PCadastroPrato />} /> */}
 

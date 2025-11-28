@@ -7,7 +7,7 @@ import ClienteDTO from '../../../interfaces/Clienteinterface';
 import ClienteRequests from '../../../fetch/ClienteRequests';
 import EditIcon from '../../../assets/editar.svg.png';
 import DeleteIcon from '../../../assets/lixeira.png';
-import AddIcon from '../../../assets/botao-adicionar.png'; // ícone PNG do botão de adicionar
+import AddIcon from '../../../assets/botao-adicionar.png';
 import { APP_ROUTES } from '../../../appConfig';
 
 function TabelaCliente(): JSX.Element {
@@ -28,23 +28,24 @@ function TabelaCliente(): JSX.Element {
 
         fetchClientes();
     }, []);
-    // Função para editar cliente
+
     const handleEditarCliente = (idCliente: number) => {
         alert(`Editar cliente: ${idCliente}`);
     };
 
-    // Função para remover cliente
+    // usa ClienteRequests.removerCliente (que manda PUT /remove/cliente?idCliente=XX)
     const handleRemoverCliente = async (idCliente: number) => {
         const confirmacao = window.confirm("Deseja realmente apagar este cliente?");
         if (!confirmacao) return;
 
         try {
             const sucesso = await ClienteRequests.removerCliente(idCliente);
+
             if (sucesso) {
                 setClientes(prev => prev.filter(c => c.idCliente !== idCliente));
                 alert("Cliente removido com sucesso!");
             } else {
-                alert("Erro ao remover cliente.");
+                alert("Erro ao remover cliente. Verifique o console (network/backend).");
             }
         } catch (error) {
             console.error("Erro ao remover cliente:", error);
@@ -56,7 +57,6 @@ function TabelaCliente(): JSX.Element {
         <main>
             <h1 className={estilo['header-tabela-cliente']}>Lista de Clientes</h1>
 
-            {/* Botão para adicionar cliente */}
             <Button
                 className="p-button-success"
                 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}
@@ -65,7 +65,6 @@ function TabelaCliente(): JSX.Element {
                 <img src={AddIcon} alt="Adicionar" style={{ width: '20px', height: '20px' }} />
                 Adicionar Cliente
             </Button>
-
 
             <DataTable
                 value={clientes}
@@ -80,8 +79,9 @@ function TabelaCliente(): JSX.Element {
                 className={estilo['data-table']}
             >
                 <Column field="idCliente" header="ID" style={{ width: '10%' }} />
-                <Column field="nome" header="Nome" style={{ width: '30%' }} />
+                <Column field="nome" header="Nome" style={{ width: '20%' }} />
                 <Column field="email" header="Email" style={{ width: '30%' }} />
+                <Column field="endereco" header="Endereço" style={{ width: '20%'}} />
                 <Column field="telefone" header="Telefone" style={{ width: '20%' }} />
 
                 <Column

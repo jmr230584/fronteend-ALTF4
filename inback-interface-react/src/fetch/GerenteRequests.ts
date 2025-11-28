@@ -13,15 +13,14 @@ class GerenteRequests {
         this.routeListaGerente = '/lista/gerentes';
         this.routeCadastraGerente = '/novo/gerente';
         this.routeAtualizaGerente = '/atualiza/gerente';
-        this.routeRemoveGerente = '/remove/gerente';
+        this.routeRemoveGerente = '/remove/gerente'; // <-- correto
     }
 
     async listarGerentes(): Promise<GerenteDTO[] | null> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaGerente}`);
             if (respostaAPI.ok) {
-                const listaDeGerentes: GerenteDTO[] = await respostaAPI.json();
-                return listaDeGerentes;
+                return await respostaAPI.json();
             }
             return null;
         } catch (error) {
@@ -32,12 +31,10 @@ class GerenteRequests {
 
     async removerGerente(idGerente: number): Promise<boolean> {
         try {
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemoveGerente}/${idGerente}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${localStorage.getItem('token')}` // se necessário
-                }
+            const url = `${this.serverURL}${this.routeRemoveGerente}?idGerente=${idGerente}`;
+
+            const respostaAPI = await fetch(url, {
+                method: 'PUT', // <-- método correto
             });
 
             return respostaAPI.ok;
@@ -47,11 +44,6 @@ class GerenteRequests {
         }
     }
 
-    /**
-     * Método para criar um novo gerente na API
-     * @param gerente Dados do gerente a ser criado
-     * @returns O gerente criado ou null em caso de erro
-     */
     async criarGerente(gerente: GerenteDTO): Promise<GerenteDTO | null> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraGerente}`, {
@@ -63,11 +55,9 @@ class GerenteRequests {
             });
 
             if (respostaAPI.ok) {
-                const novoGerente: GerenteDTO = await respostaAPI.json();
-                return novoGerente;
+                return await respostaAPI.json();
             }
 
-            console.error('Erro ao criar gerente: resposta não OK');
             return null;
         } catch (error) {
             console.error(`Erro ao criar gerente: ${error}`);

@@ -25,14 +25,11 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /* aumenta o espaço total do formulário */
     max-width: 800px;
-    /* limita a largura máxima */
     margin-left: auto;
     margin-right: auto;
     padding: 2rem;
     background-color: rgba(255, 255, 255, 0.9);
-    /* deixa fundo branco semi-transparente */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -41,36 +38,28 @@
     color: #1D3542;
     font-size: 1.8rem;
     margin: 1rem 0;
-    /* aumenta espaçamento vertical */
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* ocupa todo espaço do form */
 }
 
-.input-email-login,
-.input-password-login,
 .form-login input[type="text"],
 .form-login input[type="email"],
 .form-login input[type="password"],
 .form-login input[type="date"] {
     margin-top: 0.5rem;
     padding: 1rem;
-    /* aumenta altura interna do input */
     height: 5.5rem;
     font-size: 2rem;
-    /* deixa o texto maior */
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: white;
     width: 100%;
-    /* ocupa todo o espaço do label */
     box-sizing: border-box;
 }
 
 .input-button-login {
     width: 50%;
-    /* deixa o botão maior */
     height: 9vh;
     font-size: 2.3rem;
     font-weight: bold;
@@ -79,25 +68,4 @@
     border: none;
     border-radius: 5px;
     margin: 2rem auto 0 auto;
-}
-
-.imagem-preview-container {
-    width: 250px;
-    /* aumenta o preview da imagem */
-    height: 250px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 1rem auto;
-    border: 3px solid #b52f11;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-}
-
-.imagem-preview-placeholder {
-    color: #999;
-    font-size: 1.8rem;
-    text-align: center;
-    padding: 1rem;
 }

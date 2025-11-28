@@ -3,6 +3,7 @@ import Cabecalho from "../../../components/Cabecalho/Cabecalho.jsx";
 
 import CadastroForm from "../../../components/CadastroForm/CadastroForm.js";
 
+import CadastroGerente from "../../../components/Cadastros/CadastrarGerente/CadastroGerente.js";
 // Importa o componente que contém o formulário de login
 
 // Importa o componente de rodapé da aplicação
@@ -14,6 +15,8 @@ function PCadastroGerente() {
         <div className="pagina-grid">
             {/* Renderiza o cabeçalho da página */}
             <Cabecalho />
+
+            <CadastroGerente/>
 
             {/* Renderiza o formulário de login */}
             <CadastroForm />

@@ -32,12 +32,13 @@ class PratoRequests {
         }
     }
 
-    // Remover prato
     async removerPrato(idPrato: number): Promise<boolean> {
         try {
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemovePrato}/${idPrato}`, {
+            // Backend espera ?idPrato= em vez de /idPrato
+            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemovePrato}?idPrato=${idPrato}`, {
                 method: 'DELETE',
             });
+
             return respostaAPI.ok;
         } catch (error) {
             console.error(`Erro ao remover prato: ${error}`);
@@ -45,7 +46,7 @@ class PratoRequests {
         }
     }
 
-    // Criar novo prato
+
     async criarPrato(prato: PratoDTO): Promise<PratoDTO | null> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraPrato}`, {
@@ -70,5 +71,4 @@ class PratoRequests {
     }
 }
 
-// Exporta a classe já instanciando um objeto da mesma
 export default new PratoRequests();

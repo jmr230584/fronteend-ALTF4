@@ -14,56 +14,53 @@ class PratoRequests {
         this.routeListaPrato = '/lista/pratos';
         this.routeCadastraPrato = '/novo/prato';
         this.routeAtualizaPrato = '/atualiza/prato';
-        this.routeRemovePrato = '/remove/prato';
+        this.routeRemovePrato = '/remove/prato'; // ✔ rota correta
     }
 
     // Listar pratos
     async listarPratos(): Promise<PratoDTO[]> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaPrato}`);
-            if (respostaAPI.ok) {
-                const listaDePratos: PratoDTO[] = await respostaAPI.json();
-                return listaDePratos;
-            }
-            return [];
+            return respostaAPI.ok ? await respostaAPI.json() : [];
         } catch (error) {
             console.error(`Erro ao fazer a consulta de pratos: ${error}`);
             return [];
         }
     }
 
+    // Remover prato (PUT)
     async removerPrato(idPrato: number): Promise<boolean> {
+        const token = localStorage.getItem("token");
+
         try {
-            // Backend espera ?idPrato= em vez de /idPrato
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemovePrato}?idPrato=${idPrato}`, {
-                method: 'DELETE',
+            const url = `${this.serverURL}${this.routeRemovePrato}?idPrato=${idPrato}`;
+
+            const respostaAPI = await fetch(url, {
+                method: 'PUT', // ✔ correto
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { Authorization: `Bearer ${token}` } : {})
+                }
             });
 
             return respostaAPI.ok;
+
         } catch (error) {
             console.error(`Erro ao remover prato: ${error}`);
             return false;
         }
     }
 
-
     async criarPrato(prato: PratoDTO): Promise<PratoDTO | null> {
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraPrato}`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(prato),
             });
 
-            if (respostaAPI.ok) {
-                const novoPrato: PratoDTO = await respostaAPI.json();
-                return novoPrato;
-            }
+            return respostaAPI.ok ? await respostaAPI.json() : null;
 
-            console.error('Erro ao criar prato: resposta não OK');
-            return null;
         } catch (error) {
             console.error(`Erro ao criar prato: ${error}`);
             return null;

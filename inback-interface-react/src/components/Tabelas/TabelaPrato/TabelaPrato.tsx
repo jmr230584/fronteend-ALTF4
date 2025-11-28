@@ -28,28 +28,21 @@ function TabelaPrato(): JSX.Element {
     }, []);
 
     // Remove o prato usando o backend existente (/remove/prato?idPrato=)
+    // Remove o prato chamando a PratoRequests
     const handleRemoverPrato = async (idPrato: number) => {
         const confirmacao = window.confirm("Deseja realmente apagar este prato?");
         if (!confirmacao) return;
 
-        try {
-            const response = await fetch(`http://localhost:3000/remove/prato?idPrato=${idPrato}`, {
-                method: "DELETE",
-            });
+        const sucesso = await PratoRequests.removerPrato(idPrato);
 
-            if (response.ok) {
-                setPratos(prev => prev.filter(p => p.idPrato !== idPrato));
-                alert("Prato removido com sucesso!");
-            } else {
-                const erroTexto = await response.text();
-                console.error("Erro ao remover prato:", erroTexto);
-                alert("Erro ao remover prato.");
-            }
-        } catch (error) {
-            console.error("Erro ao remover prato:", error);
+        if (sucesso) {
+            setPratos(prev => prev.filter(p => p.idPrato !== idPrato));
+            alert("Prato removido com sucesso!");
+        } else {
             alert("Erro ao remover prato.");
         }
     };
+
 
     return (
         <main>

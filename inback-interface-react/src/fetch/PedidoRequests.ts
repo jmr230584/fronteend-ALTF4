@@ -1,10 +1,6 @@
 import { SERVER_CFG } from '../appConfig';
 import PedidoDTO from '../interfaces/Pedidointerface';
 
-/**
- * Classe com a coleção de funções que farão as requisições à API
- * Esta classe representa apenas as requisições da entidade Pedido
- */
 class PedidoRequests {
 
     private serverURL: string;
@@ -18,12 +14,13 @@ class PedidoRequests {
         this.routeListaPedido = '/lista/pedidos';
         this.routeCadastraPedido = '/novo/pedido';
         this.routeAtualizaPedido = '/atualiza/pedido';
-        this.routeRemovePedido = '/remove/pedido';
+        this.routeRemovePedido = '/remove/pedido'; // ✔ CORRETO
     }
 
     // Listar pedidos
     async listarPedidos(): Promise<PedidoDTO[] | null> {
         const token = localStorage.getItem("token");
+
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeListaPedido}`, {
                 method: 'GET',
@@ -33,31 +30,31 @@ class PedidoRequests {
                 }
             });
 
-            if (respostaAPI.ok) {
-                const listaDePedidos: PedidoDTO[] = await respostaAPI.json();
-                return listaDePedidos;
-            }
+            return respostaAPI.ok ? await respostaAPI.json() : null;
 
-            return null;
         } catch (error) {
             console.error(`Erro ao fazer a consulta de pedidos: ${error}`);
             return null;
         }
     }
 
-    // Remover pedido
+    // Remover pedido (PUT + query param)
     async removerPedido(idPedido: number): Promise<boolean> {
         const token = localStorage.getItem("token");
+
         try {
-            const respostaAPI = await fetch(`${this.serverURL}${this.routeRemovePedido}/${idPedido}`, {
-                method: 'DELETE',
+            const url = `${this.serverURL}${this.routeRemovePedido}?idPedido=${idPedido}`;
+
+            const respostaAPI = await fetch(url, {
+                method: 'PUT', // ✔ METÓDO CORRETO
                 headers: {
                     'Content-Type': 'application/json',
                     ...(token ? { Authorization: `Bearer ${token}` } : {})
                 }
             });
 
-            return respostaAPI.ok; // retorna true se a requisição foi bem-sucedida
+            return respostaAPI.ok;
+
         } catch (error) {
             console.error(`Erro ao remover o pedido: ${error}`);
             return false;
@@ -67,6 +64,7 @@ class PedidoRequests {
     // Criar novo pedido
     async criarPedido(pedido: PedidoDTO): Promise<PedidoDTO | null> {
         const token = localStorage.getItem("token");
+
         try {
             const respostaAPI = await fetch(`${this.serverURL}${this.routeCadastraPedido}`, {
                 method: 'POST',
@@ -77,13 +75,8 @@ class PedidoRequests {
                 body: JSON.stringify(pedido),
             });
 
-            if (respostaAPI.ok) {
-                const novoPedido: PedidoDTO = await respostaAPI.json();
-                return novoPedido;
-            }
+            return respostaAPI.ok ? await respostaAPI.json() : null;
 
-            console.error('Erro ao criar pedido: resposta não OK');
-            return null;
         } catch (error) {
             console.error(`Erro ao criar pedido: ${error}`);
             return null;
@@ -92,5 +85,4 @@ class PedidoRequests {
 
 }
 
-// Exporta a classe já instanciando um objeto da mesma
 export default new PedidoRequests();

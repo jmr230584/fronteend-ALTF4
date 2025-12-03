@@ -6,7 +6,7 @@ import boletoImg from '../../assets/economizar.png';
 
 import img1 from "../../assets/hamburguer1.jpg";
 import img2 from "../../assets/hamburguer2.jpg";
-import img3 from "../../assets/hamburguer3.jpg";
+// import img3 from "../../assets/hamburguer3.jpg";
 import imgQRCODE from "../../assets/QRCODE.png";
 
 import { APP_ROUTES } from '../../appConfig';
@@ -41,7 +41,7 @@ function Checkout() {
   const itens: Item[] = [
     { id: 1, nome: 'HAMBÚRGUER CLÁSSICO', quantidade: 1, preco: 35.90, imagem: img1 },
     { id: 2, nome: 'HAMBÚRGUER CAESAR', quantidade: 1, preco: 27.50, imagem: img2 },
-    { id: 3, nome: 'HAMBÚRGUER PARMESÃO', quantidade: 1, preco: 42.0, imagem: img3 },
+    // { id: 3, nome: 'HAMBÚRGUER PARMESÃO', quantidade: 1, preco: 42.0, imagem: img3 },
   ];
 
   const subtotal = itens.reduce((acc, item) => acc + item.preco * item.quantidade, 0);

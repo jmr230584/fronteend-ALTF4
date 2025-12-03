@@ -4,29 +4,30 @@ import backgroundImage from '../../../assets/background.webp';
 
 function CadastroPrato(): JSX.Element {
 
-    const [idGerente, setIdGerente] = useState('');
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [preco, setPreco] = useState('');
-    const [fotoFrente, setFotoFrente] = useState<File | null>(null);
+
+    // ID do gerente logado (substitua pelo ID real do usuário logado)
+    const idGerente = 1;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('id_gerente', idGerente);
-        formData.append('nome', nome);
-        formData.append('descricao', descricao);
-        formData.append('preco', preco);
-
-        if (fotoFrente) {
-            formData.append('foto_frente', fotoFrente);
-        }
+        const prato = {
+            nome,
+            descricao,
+            preco: parseFloat(preco),
+            idGerente
+        };
 
         try {
             const response = await fetch('http://localhost:3333/novo/prato', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(prato)
             });
 
             const data = await response.json();
@@ -34,11 +35,9 @@ function CadastroPrato(): JSX.Element {
 
             if (response.ok) {
                 alert('Prato cadastrado com sucesso!');
-                setIdGerente('');
                 setNome('');
                 setDescricao('');
                 setPreco('');
-                setFotoFrente(null);
             } else {
                 alert('Erro: ' + data);
             }
@@ -59,17 +58,6 @@ function CadastroPrato(): JSX.Element {
         >
             <form className={estilo['form-login']} onSubmit={handleSubmit}>
                 <h3>Cadastro de Prato</h3>
-
-                <label>
-                    ID do Gerente
-                    <input
-                        type="number"
-                        placeholder="Insira o ID do gerente"
-                        value={idGerente}
-                        onChange={(e) => setIdGerente(e.target.value)}
-                        required
-                    />
-                </label>
 
                 <label>
                     Nome do Prato
@@ -102,15 +90,6 @@ function CadastroPrato(): JSX.Element {
                         value={preco}
                         onChange={(e) => setPreco(e.target.value)}
                         required
-                    />
-                </label>
-
-                <label>
-                    Foto do Prato
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setFotoFrente(e.target.files?.[0] || null)}
                     />
                 </label>
 

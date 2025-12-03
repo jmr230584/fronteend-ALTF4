@@ -1,71 +1,86 @@
-* {
-    padding: 0px;
-}
+/* Fonte mais bonita, moderna e padrão de UI */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+/* Sessão principal */
 .form-section {
-    background: url('../assets/background.webp') no-repeat;
+    background: url('../../assets/background.webp') no-repeat;
     background-size: cover;
     width: 100%;
-    height: 1500px;
-    background-color: var(--cor-primaria);
+    min-height: 170vh;
+
     margin: auto auto;
     border-radius: 5px;
+
+    font-family: 'Poppins', sans-serif;
 }
 
-.form-section h3 {
-    color: var(--branco-suave);
-    text-align: center;
-    font-size: 2rem;
-    margin: 1% 0;
-}
-
+/* Container do form */
 .form-login {
-    margin-top: 2%;
+    margin-top: 3%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Labels modernos */
 .form-login label {
     color: #1D3542;
-    font-size: 1.8rem;
-    margin: 1rem 0;
+    font-size: 1.5rem;        /* Menor e mais elegante */
+    font-weight: 600;
+
+    margin: 0 6%;
+    margin-top: 30px;
+
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
+/* Inputs grandes e bonitos */
 .form-login input[type="text"],
 .form-login input[type="email"],
 .form-login input[type="password"],
 .form-login input[type="date"] {
-    margin-top: 0.5rem;
-    padding: 1rem;
-    height: 5.5rem;
-    font-size: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-    width: 100%;
-    box-sizing: border-box;
-}
+    margin-top: 0.5%;
+    padding-left: 2%;
 
-.input-button-login {
-    width: 50%;
     height: 9vh;
-    font-size: 2.3rem;
-    font-weight: bold;
-    background-color: #b52f11;
-    color: var(--branco-suave);
     border: none;
     border-radius: 5px;
-    margin: 2rem auto 0 auto;
+
+    background-color: #fff;
+
+    font-size: 1.4rem;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+}
+
+/* Placeholder suave */
+.form-login input::placeholder {
+    color: rgb(146, 140, 140);
+    font-size: 1rem;
+}
+
+/* Botão estiloso */
+.input-button-login {
+    width: 30%;
+    height: 6.5vh;
+
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    background-color: #b52f11;
+    color: white;
+
+    border: none;
+    border-radius: 5px;
+
+    margin: auto auto;
+    margin-top: 2%;
+    cursor: pointer;
+
+    transition: 0.2s ease-in-out;
+}
+
+.input-button-login:hover {
+    transform: scale(1.03);
+    background-color: #93250e;
 }

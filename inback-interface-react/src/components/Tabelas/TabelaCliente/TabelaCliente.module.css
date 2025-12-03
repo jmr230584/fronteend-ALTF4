@@ -1,4 +1,6 @@
-
+main {
+        background-color: #F0BD61;
+}
 .header-tabela-cliente {
     text-align: center;
     margin: 2% auto;
@@ -6,11 +8,11 @@
 }
 
 .data-table {
+
     font-family: "Bebas Neue", sans-serif;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
     margin: 5% auto 0 auto;
     width: 90%;
 }

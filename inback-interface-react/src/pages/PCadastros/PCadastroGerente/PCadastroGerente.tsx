@@ -19,7 +19,6 @@ function PCadastroGerente() {
             <CadastroGerente/>
 
             {/* Renderiza o formulário de login */}
-            <CadastroForm />
         </div>
     );
 }

@@ -3,6 +3,11 @@ import styles from "./Carrinho.module.css";
 import Trash from "../../assets/lixeira.png";
 import { APP_ROUTES } from "../../appConfig";
 
+// Imagens importadas
+import img1 from "../../assets/hamburguer1.jpg";
+import img2 from "../../assets/hamburguer2.jpg";
+import img3 from "../../assets/hamburguer3.jpg";
+
 interface Produto {
     id: number;
     nome: string;
@@ -14,21 +19,21 @@ function Carrinho() {
     const [produtos, setProdutos] = useState<Produto[]>([
         {
             id: 1,
-            nome: "Backstage Meat and Heat",
-            preco: 24.0,
-            imagem: "",
+            nome: "HAMBÚRGUER CLÁSSICO",
+            preco: 35.90,
+            imagem: img1,
         },
         {
             id: 2,
-            nome: "Backstage Meat and Heat",
-            preco: 24.0,
-            imagem: "",
+            nome: "HAMBÚRGUER CAESAR",
+            preco: 27.50,
+            imagem: img2,
         },
         {
             id: 3,
-            nome: "Backstage Meat and Heat",
-            preco: 24.0,
-            imagem: "",
+            nome: "HAMBÚRGUER PARMESÃO",
+            preco: 42.0,
+            imagem: img3,
         },
     ]);
 
@@ -62,8 +67,11 @@ function Carrinho() {
                     </div>
                 ))}
 
-
-                <a className={styles.botao} onClick={comprar} href={APP_ROUTES.ROUTE_PAGAMENTO}>
+                <a
+                    className={styles.botao}
+                    onClick={comprar}
+                    href={APP_ROUTES.ROUTE_PAGAMENTO}
+                >
                     Ir para o pagamento
                 </a>
             </div>

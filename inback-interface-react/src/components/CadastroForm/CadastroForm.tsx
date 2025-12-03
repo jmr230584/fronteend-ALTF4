@@ -1,8 +1,8 @@
-import { useState, JSX } from 'react';
+import { useState } from 'react';
 import estilo from './CadastroForm.module.css';
 import backgroundImage from '../../assets/background.webp';
 
-function CadastroForm(): JSX.Element {
+function CadastroForm() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -26,11 +26,23 @@ function CadastroForm(): JSX.Element {
             });
 
             const data = await response.json();
-            console.log('Usuário cadastrado:', data);
-            alert('Cadastro realizado com sucesso!');
+            console.log('Cliente cadastrado:', data);
+
+            if (response.ok) {
+                alert('Cliente cadastrado com sucesso!');
+
+                // limpar campos
+                setNome('');
+                setEmail('');
+                setSenha('');
+                setEndereco('');
+                setTelefone('');
+            } else {
+                alert('Erro: ' + data);
+            }
         } catch (err) {
-            console.error('Erro ao cadastrar:', err);
-            alert('Erro ao cadastrar usuário');
+            console.error('Erro ao cadastrar cliente:', err);
+            alert('Erro ao cadastrar cliente');
         }
     };
 
@@ -46,10 +58,10 @@ function CadastroForm(): JSX.Element {
             <form className={estilo['form-login']} onSubmit={handleSubmit}>
 
                 <label>
-                    Nome Completo
+                    NOME COMPLETO
                     <input
                         type="text"
-                        placeholder="Insira seu nome completo"
+                        placeholder="INSIRA SEU NOME COMPLETO"
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
                         required
@@ -57,10 +69,10 @@ function CadastroForm(): JSX.Element {
                 </label>
 
                 <label>
-                    E-mail
+                    E-MAIL
                     <input
                         type="email"
-                        placeholder="Insira seu email"
+                        placeholder="INSIRA SEU EMAIL"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -68,10 +80,10 @@ function CadastroForm(): JSX.Element {
                 </label>
 
                 <label>
-                    Senha
+                    SENHA
                     <input
                         type="password"
-                        placeholder="Insira sua senha"
+                        placeholder="INSIRA SUA SENHA"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
                         required
@@ -79,10 +91,10 @@ function CadastroForm(): JSX.Element {
                 </label>
 
                 <label>
-                    Endereço
+                    ENDEREÇO
                     <input
                         type="text"
-                        placeholder="Insira seu endereço"
+                        placeholder="INSIRA SEU ENDEREÇO"
                         value={endereco}
                         onChange={(e) => setEndereco(e.target.value)}
                         required
@@ -90,10 +102,10 @@ function CadastroForm(): JSX.Element {
                 </label>
 
                 <label>
-                    Telefone
+                    TELEFONE
                     <input
                         type="text"
-                        placeholder="Insira seu telefone"
+                        placeholder="INSIRA SEU TELEFONE"
                         value={telefone}
                         onChange={(e) => setTelefone(e.target.value)}
                         required

@@ -9,6 +9,7 @@ import PratoRequests from '../../../fetch/PratoRequests';
 import EditIcon from '../../../assets/editar.svg.png';
 import DeleteIcon from '../../../assets/lixeira.png';
 import AddIcon from '../../../assets/botao-adicionar.png';
+import { APP_ROUTES } from '../../../appConfig';
 
 function TabelaPrato(): JSX.Element {
     const [pratos, setPratos] = useState<PratoDTO[]>([]);
@@ -51,12 +52,13 @@ function TabelaPrato(): JSX.Element {
             {/* Botão de adicionar */}
             <Button
                 className={estilo['add-button']}
-                onClick={() => navigate('/prato/novo')}
+                onClick={() => navigate(APP_ROUTES.ROUTE_CADASTRO_PRATO)}
                 style={{ marginBottom: '1rem' }}
             >
                 <img src={AddIcon} alt="Adicionar" />
                 Adicionar Prato
             </Button>
+
 
             <DataTable
                 value={pratos}

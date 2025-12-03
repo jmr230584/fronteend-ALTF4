@@ -1,31 +1,37 @@
-
 .main {
   background-color: var(--amarelo);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
+  padding: 60px 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 110vh;
 }
 
 .container {
   display: flex;
-  flex-direction: row; 
   justify-content: center;
-  align-items: flex-start;
-  gap: 50px;
-  max-width: 1200px;
+  align-items: center;
+  gap: 70px;
+  max-width: 1300px;
   width: 90%;
-  padding: 20px 0;
+  padding: 20px;
+  position: relative;
 }
 
 .textoBox {
   font-family: Bebas Neue;
-  max-width: 560px;
+  max-width: 580px;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 18px;
+}
+
+.subTitulo {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: #1E3640;
+  opacity: 0.8;
 }
 
 .titulo {
@@ -35,50 +41,119 @@
 }
 
 .card {
-  background-color: #B52F11;
+  background-color: rgba(181, 47, 17, 0.92);
   color: #ffffff;
-  padding: 28px;
-  border-radius: 14px;
+  padding: 32px;
+  border-radius: 20px;
+
+  /* Glass effect suave */
+  backdrop-filter: blur(6px);
+
   font-size: 15px;
-  line-height: 1.6;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  width: 550px;
+  line-height: 1.7;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.20);
+  width: 580px;
   min-height: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
 }
 
 .card p {
   margin: 0;
   text-transform: uppercase;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+}
+
+.historiaExtra {
+  font-family: Bebas Neue;
+  font-size: 1.5rem;
+  color: #1E3640;
+  margin-top: 10px;
+  line-height: 1.4;
+  opacity: 0.9;
 }
 
 .imgBox {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  position: relative;
 }
 
 .imgBox img {
   width: 500px;
   height: 600px;
   object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.20);
+  z-index: 2;
+  position: relative;
+  transition: transform 0.3s;
 }
 
+.imgBox img:hover {
+  transform: scale(1.02);
+}
+
+/* Elemento decorativo atrás da imagem */
+.decoracao {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 500px;
+  height: 600px;
+  border-radius: 18px;
+  background-color: #B52F11;
+  opacity: 0.25;
+  filter: blur(6px);
+  z-index: 1;
+}
+
+/* Responsividade */
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
     text-align: center;
-    gap: 30px;
+    gap: 40px;
   }
 
-  .imgBox img {
+  .titulo {
+    font-size: 4rem;
+  }
+
+  .card,
+  .historiaExtra {
+    width: 100%;
+  }
+
+  .imgBox img,
+  .decoracao {
     width: 100%;
     height: auto;
   }
+}
+
+.botao {
+  margin-top: 10px;
+  width: 260px;
+  padding: 14px 18px;
+  font-family: Bebas Neue;
+  font-size: 1.6rem;
+  background-color: #1E3640;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.botao:hover {
+  transform: translateY(-3px);
+  background-color: #162930;
 }

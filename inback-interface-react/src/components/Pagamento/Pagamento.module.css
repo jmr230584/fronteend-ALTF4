@@ -6,7 +6,8 @@
   font-family: Arial, sans-serif;
 }
 
-.esquerda, .direita {
+.esquerda,
+.direita {
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
@@ -23,7 +24,9 @@
   gap: 1rem;
 }
 
-.email input, .cupom input, .cep input {
+.email input,
+.cupom input,
+.cep input {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.5rem;
@@ -74,21 +77,97 @@
 }
 
 input::placeholder {
-  font-size: 20px; /* diminui o tamanho do placeholder */
-  color: #888; /* opcional: muda a cor do placeholder */
-  font-style: italic; /* opcional */
+  font-size: 20px;
+  color: #888;
+  font-style: italic;
 }
 
 .forma {
   margin: 20px;
   display: flex;
   align-items: center;
-  gap: 10px; /* espaço entre imagem e texto */
+  gap: 10px;
   position: relative;
 }
 
 .imgPagamento {
-  width: 20px;  /* ajuste o tamanho da imagem */
+  width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+/* ============= ABA DO CARTÃO ============= */
+
+.cartaoBox {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-left: 20px;
+  margin-top: -10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cartaoBox input {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* ============= ABA DO PIX (QR CODE) ============= */
+
+.pixBox {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-left: 20px;
+  margin-top: -10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.qrCode {
+  width: 180px;
+  height: 180px;
+  margin: 10px auto;
+  display: block;
+}
+
+.boletoBox {
+  background: #f7f7f7;
+  padding: 1rem;
+  margin-left: 20px;
+  margin-top: -10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.codigoBarras {
+  font-size: 22px;
+  letter-spacing: 2px;
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.btnBoleto {
+  background: #222;
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnBoleto:hover {
+  background: #000;
 }

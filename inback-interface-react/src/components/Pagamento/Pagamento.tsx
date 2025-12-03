@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import styles from './Pagamento.module.css';
-import produtoImg from '../../assets/lancheDouble.png'; // substitua pelo caminho da imagem real
 import pixImg from '../../assets/forma-de-pagamento.png';
 import cartaoImg from '../../assets/cartao-de-credito.png';
 import boletoImg from '../../assets/economizar.png';
+
+import img1 from "../../assets/hamburguer1.jpg";
+import img2 from "../../assets/hamburguer2.jpg";
+import img3 from "../../assets/hamburguer3.jpg";
+import imgQRCODE from "../../assets/QRCODE.png";
+
 import { APP_ROUTES } from '../../appConfig';
 
 interface Item {
@@ -20,24 +25,42 @@ function Checkout() {
   const [cupom, setCupom] = useState('');
   const [formaPagamento, setFormaPagamento] = useState('cartao');
 
+  // CAMPOS DO CARTÃO
+  const [dadosCartao, setDadosCartao] = useState({
+    nome: '',
+    numero: '',
+    validade: '',
+    cvv: '',
+    cpf: ''
+  });
+
+  const handleChangeCartao = (campo: string, valor: string) => {
+    setDadosCartao((prev) => ({ ...prev, [campo]: valor }));
+  };
+
   const itens: Item[] = [
-    {
-      id: 1,
-      nome: 'Backstage Meat and Heat',
-      quantidade: 3,
-      preco: 24,
-      imagem: produtoImg,
-    },
+    { id: 1, nome: 'HAMBÚRGUER CLÁSSICO', quantidade: 1, preco: 35.90, imagem: img1 },
+    { id: 2, nome: 'HAMBÚRGUER CAESAR', quantidade: 1, preco: 27.50, imagem: img2 },
+    { id: 3, nome: 'HAMBÚRGUER PARMESÃO', quantidade: 1, preco: 42.0, imagem: img3 },
   ];
 
   const subtotal = itens.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
 
   const aplicarCupom = () => alert(`Cupom ${cupom} aplicado!`);
-  const finalizarPedido = () => alert('Pedido finalizado!');
+
+  const finalizarPedido = () => {
+    if (formaPagamento === 'cartao') {
+      console.log("Dados do cartão salvos:", dadosCartao);
+    }
+    alert('Pedido finalizado!');
+  };
 
   return (
     <div className={styles.container}>
+
+      {/* COLUNA ESQUERDA */}
       <div className={styles.esquerda}>
+
         <div className={styles.email}>
           <label>Endereço do E-mail</label>
           <p>O comprovante será enviado para o seu E-mail</p>
@@ -51,6 +74,7 @@ function Checkout() {
 
         <div className={styles.pedido}>
           <h3>Pedido 1 de {itens.length}</h3>
+
           {itens.map((item) => (
             <div key={item.id} className={styles.item}>
               <img src={item.imagem} alt={item.nome} />
@@ -63,7 +87,9 @@ function Checkout() {
         </div>
       </div>
 
+      {/* COLUNA DIREITA */}
       <div className={styles.direita}>
+
         <div className={styles.resumo}>
           <p>Total:</p>
           <p>R$ {subtotal.toFixed(2)}</p>
@@ -71,9 +97,11 @@ function Checkout() {
           <a href={APP_ROUTES.ROUTE_CARDAPIO}>← Continuar comprando</a>
         </div>
 
+        {/* FORMAS DE PAGAMENTO */}
         <div className={styles.pagamento}>
           <h4>Formas de Pagamento</h4>
 
+          {/* CARTÃO */}
           <label className={styles.forma}>
             <input
               type="radio"
@@ -86,6 +114,33 @@ function Checkout() {
             Cartão de Crédito ou Débito
           </label>
 
+          {formaPagamento === 'cartao' && (
+            <div className={styles.cartaoBox}>
+              <h5>Informações do Cartão</h5>
+
+              <input type="text" placeholder="Nome no cartão"
+                value={dadosCartao.nome}
+                onChange={(e) => handleChangeCartao("nome", e.target.value)} />
+
+              <input type="text" placeholder="Número do cartão"
+                value={dadosCartao.numero}
+                onChange={(e) => handleChangeCartao("numero", e.target.value)} />
+
+              <input type="text" placeholder="Validade (MM/AA)"
+                value={dadosCartao.validade}
+                onChange={(e) => handleChangeCartao("validade", e.target.value)} />
+
+              <input type="text" placeholder="CVV"
+                value={dadosCartao.cvv}
+                onChange={(e) => handleChangeCartao("cvv", e.target.value)} />
+
+              <input type="text" placeholder="CPF do titular"
+                value={dadosCartao.cpf}
+                onChange={(e) => handleChangeCartao("cpf", e.target.value)} />
+            </div>
+          )}
+
+          {/* PIX */}
           <label className={styles.forma}>
             <input
               type="radio"
@@ -98,6 +153,15 @@ function Checkout() {
             Pix
           </label>
 
+          {formaPagamento === 'pix' && (
+            <div className={styles.pixBox}>
+              <h5>Pagamento via Pix</h5>
+              <img src={imgQRCODE} alt="QR Code Pix" className={styles.qrCode} />
+              <p>Escaneie o QR Code para pagar</p>
+            </div>
+          )}
+
+          {/* BOLETO */}
           <label className={styles.forma}>
             <input
               type="radio"
@@ -109,9 +173,26 @@ function Checkout() {
             <img src={boletoImg} alt="Boleto" className={styles.imgPagamento} />
             Boleto Bancário
           </label>
+
+          {formaPagamento === 'boleto' && (
+            <div className={styles.boletoBox}>
+              <h5>Boleto Bancário</h5>
+
+              <p>O boleto será gerado com vencimento de 2 dias.</p>
+
+              <div className={styles.codigoBarras}>
+                █ ███ █ ████ █ ██ █ ███ ███ █ ███ ██ █ ███ ██
+              </div>
+
+              <button className={styles.btnBoleto}>
+                Gerar boleto
+              </button>
+            </div>
+          )}
+
         </div>
 
-
+        {/* CUPOM + CEP */}
         <div className={styles.cupomCep}>
           <div className={styles.cupom}>
             <p>Aplicar Cupom</p>
@@ -135,7 +216,9 @@ function Checkout() {
             <span>✔</span>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 }
